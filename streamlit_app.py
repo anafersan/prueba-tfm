@@ -16,15 +16,15 @@ st.area_chart(chart_data)
 
 # Gráfico tarta
 
-#arr = np.random.normal(1, 1, size=100)
-#fig, ax = plt.subplots()
-#ax.hist(arr, bins=20)
+arr = np.random.normal(1, 1, size=100)
+fig, ax = plt.subplots()
+ax.hist(arr, bins=20)
 
 labels = 'Positive', 'Neutral', 'Negative'
 sections = [50, 35, 15]
 colors = ['g', 'y', 'r']
 
-fig = plt.pie(sections, labels=labels, colors=colors,
+#fig = plt.pie(sections, labels=labels, colors=colors,
         startangle=90,
         explode = (0, 0, 0),
         autopct = '%1.2f%%')
