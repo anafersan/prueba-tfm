@@ -2,8 +2,7 @@
 
 import streamlit as st
 import pandas as pd
-import matplotlib
-from matplotlib import pyplot as plt
+import matplotlib.pyplot as plt
 import numpy as np
 
 
