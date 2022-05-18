@@ -3,6 +3,7 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import matplotlib.pyplot as plt
 
 st.title('Twitter prueba')
 
@@ -13,8 +14,6 @@ chart_data = pd.DataFrame(
 st.area_chart(chart_data)
 
 # Gráfico tarta
-
-import matplotlib.pyplot as plt
 
 #arr = np.random.normal(1, 1, size=100)
 #fig, ax = plt.subplots()
