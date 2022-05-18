@@ -1,4 +1,4 @@
 
 
 import streamlit as st
-streamlit hello
+st hello
