@@ -59,7 +59,8 @@ colors = ['g', 'y', 'r']
 
 st.write(sections)
 st.write(labels)
-st.write(np.random.randn(20, 3))
+aa = np.random.randn(20, 3)
+st.write(aa)
 
 chart_data = pd.DataFrame(sections, columns = labels)
 
