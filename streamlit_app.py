@@ -61,7 +61,7 @@ st.write(sections)
 st.write(labels)
 
 
-chart_data = pd.DataFrame(sections, columns = labels)
+chart_data = pd.DataFrame([sections], columns = labels)
 
 
 #chart_data = pd.DataFrame(np.random.randn(20, 3),columns=['a', 'b', 'c'])
