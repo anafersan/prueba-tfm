@@ -53,7 +53,7 @@ for tweet in response.data:
 # FRONT
 st.title('Twitter prueba')
 
-labels = 'Positive', 'Neutral', 'Negative'
+labels = ['Positive', 'Neutral', 'Negative']
 sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
 colors = ['g', 'y', 'r']
 
