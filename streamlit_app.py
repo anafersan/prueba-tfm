@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
+import pytorch
 
 # Model importing
 tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
