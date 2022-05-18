@@ -58,6 +58,7 @@ sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), senti
 colors = ['g', 'y', 'r']
 
 st.write(sections)
+st.write(labels)
 
 chart_data = pd.DataFrame(sections, columns = labels)
 
