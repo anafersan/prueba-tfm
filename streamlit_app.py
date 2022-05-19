@@ -65,17 +65,4 @@ colors = ['g', 'y', 'r']
 chart_data = pd.DataFrame([sections], columns = labels)
 st.bar_chart(chart_data)
 
-# Gráfico distribución de sentimientos - 2
 
-chart = (
-    alt.Chart(sections)
-    .mark_bar()
-    .encode(
-        alt.X("Nucleotide:O"),
-        alt.Y("Similarities"),
-        alt.Color("Nucleotide:O"),
-        alt.Tooltip(["Nucleotide", "Similarities"]),
-    )
-    .interactive()
-)
-st.altair_chart(chart)
