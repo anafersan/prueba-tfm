@@ -9,6 +9,12 @@ import numpy as np
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
 
+# TITULO
+st.title('Twitter prueba')
+# DESCRIPCIÓN
+st.write("PRUEBA PARA TFM TWITTER")
+# FORMULARIO HASHTAG
+title = st.text_input('Movie title', 'Life of Brian')
 
 # Model importing
 tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
@@ -50,41 +56,13 @@ for tweet in response.data:
   sentimientos[len(sentimientos):] = [label]
 
 
-# FRONT
-st.title('Twitter prueba')
+# Gráfico distribución de sentimientos
 
 labels = ['Positive', 'Neutral', 'Negative']
 sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
 colors = ['g', 'y', 'r']
-
-st.write(sections)
-st.write(labels)
-
-
 chart_data = pd.DataFrame([sections], columns = labels)
-
-
-#chart_data = pd.DataFrame(np.random.randn(20, 3),columns=['a', 'b', 'c'])
-
 st.bar_chart(chart_data)
 
-# Gráfico tarta
 
-arr = np.random.normal(1, 1, size=100)
-fig, ax = plt.subplots()
-ax.hist(arr, bins=20)
 
-labels = 'Positive', 'Neutral', 'Negative'
-sections = [50, 35, 15]
-colors = ['g', 'y', 'r']
-
-#fig = plt.pie(sections, labels=labels, colors=colors,
-#        startangle=90,
-#        explode = (0, 0, 0),
-#        autopct = '%1.2f%%')
-
-#plt.axis('equal') # Try commenting this out.
-#plt.title('Pie Chart Twitter Sentiment Example')
-#plt.show()
-
-st.pyplot(fig)
