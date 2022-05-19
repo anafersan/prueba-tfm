@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
+import altair as alt
 
 # TITULO
 st.title('Twitter prueba')
@@ -64,5 +65,17 @@ colors = ['g', 'y', 'r']
 chart_data = pd.DataFrame([sections], columns = labels)
 st.bar_chart(chart_data)
 
+# Gráfico distribución de sentimientos - 2
 
-
+chart = (
+    alt.Chart(sections)
+    .mark_bar()
+    .encode(
+        alt.X("Nucleotide:O"),
+        alt.Y("Similarities"),
+        alt.Color("Nucleotide:O"),
+        alt.Tooltip(["Nucleotide", "Similarities"]),
+    )
+    .interactive()
+)
+st.altair_chart(chart)
