@@ -14,7 +14,7 @@ st.title('Twitter prueba')
 # DESCRIPCIÓN
 st.write("PRUEBA PARA TFM TWITTER")
 # FORMULARIO HASHTAG
-title = st.text_input('Movie title', 'Life of Brian')
+hashtag = st.text_input('Introduce un hashtag', '#Love')
 
 # Model importing
 tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
@@ -35,7 +35,7 @@ client = tweepy.Client(bearer_token,
                        access_token_secret)
 
 #Tweets extraction
-query = "#TierraDeNadie3 lang:en -is:retweet" 
+query =  hashtag + " lang:en -is:retweet" 
 
 response = client.search_recent_tweets(query=query,
                                      tweet_fields = ["created_at", "text", "source", "public_metrics", "entities"],
