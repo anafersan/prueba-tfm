@@ -23,11 +23,11 @@ hashtag = st.text_input('Introduce un hashtag', '#Love')
 
 @st.cache
 def load_model():
-	  return AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
+	return AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
   
 @st.cache
 def load_tokenizer():
-  return AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
+	return AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
   
 model = load_model()
 tokenizer = load_tokenizer()
