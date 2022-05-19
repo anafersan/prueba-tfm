@@ -95,7 +95,7 @@ ax1.pie(sections, labels=labels, colors=colors,
 ax1.axis('equal') # Try commenting this out.
 #ax1.title('Pie Chart Twitter Sentiment Example')
 st.write("Pie Chart Twitter Sentiment Example")
-st.pyplot(fig)
+st.pyplot(fig1)
 
 #plt.show()
 
