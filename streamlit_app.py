@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
-import altair as alt
+#import altair as alt
 
 # TITULO
 st.title('Twitter prueba')
@@ -80,3 +80,36 @@ chart_data = pd.DataFrame([sections], columns = labels)
 st.bar_chart(chart_data)
 
 
+
+labels = 'Positive', 'Neutral', 'Negative'
+sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
+colors = ['g', 'y', 'r']
+
+fig1, ax1 = plt.subplots()
+
+ax1.pie(sections, labels=labels, colors=colors,
+        startangle=90,
+        explode = (0, 0, 0),
+        autopct = '%1.2f%%')
+
+ax1.axis('equal') # Try commenting this out.
+ax1.title('Pie Chart Twitter Sentiment Example')
+st.pyplot(fig)
+
+#plt.show()
+
+
+
+#import matplotlib.pyplot as plt
+
+# Pie chart, where the slices will be ordered and plotted counter-clockwise:
+#labels = 'Frogs', 'Hogs', 'Dogs', 'Logs'
+#sizes = [15, 30, 45, 10]
+#explode = (0, 0.1, 0, 0)  # only "explode" the 2nd slice (i.e. 'Hogs')
+
+#fig1, ax1 = plt.subplots()
+#ax1.pie(sizes, explode=explode, labels=labels, autopct='%1.1f%%',
+#        shadow=True, startangle=90)
+#ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+
+#plt.show()
