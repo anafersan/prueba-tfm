@@ -21,7 +21,7 @@ with col1:
 
 with col2:
 	# DESCRIPCIÓN
-	st.write("PRUEBA PARA TFM TWITTER")
+	#st.write("PRUEBA PARA TFM TWITTER")
 	# FORMULARIO HASHTAG
 	hashtag = st.text_input('Introduce un hashtag', '#Love')
 
