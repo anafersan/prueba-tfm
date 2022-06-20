@@ -12,10 +12,18 @@ from transformers import pipeline
 
 # TITULO
 st.title('Twitter prueba')
-# DESCRIPCIÓN
-st.write("PRUEBA PARA TFM TWITTER")
-# FORMULARIO HASHTAG
-hashtag = st.text_input('Introduce un hashtag', '#Love')
+
+col1, col2 = st.columns([1, 3])
+
+with col1:
+	# HEADER COL 1
+	st.subheader("LISTADO DE TT")
+
+with col2:
+	# DESCRIPCIÓN
+	st.write("PRUEBA PARA TFM TWITTER")
+	# FORMULARIO HASHTAG
+	hashtag = st.text_input('Introduce un hashtag', '#Love')
 
 # Model importing
 # Load the model (only executed once!)
