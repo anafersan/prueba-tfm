@@ -22,7 +22,7 @@ with st.container():
 	with col1:
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
-		df = pd.DataFrame({'Hashtag': ['#ucrania', '#love', '#amistad', '#madrid', '#ia']})
+		df = pd.DataFrame({'hashtag': ['#ucrania', '#love', '#amistad', '#madrid', '#ia']})
 		grid_options = {
 		    "columnDefs": [
 			{
