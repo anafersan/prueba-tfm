@@ -30,7 +30,7 @@ with st.container():
 		grid_options = options_builder.build()
 
 		grid_return = AgGrid(df, grid_options) 
-		selected_rows = grid_return[“selected_rows”]
+		selected_rows = grid_return["selected_rows"]
 
 		st.write(selected_rows)
 
