@@ -42,7 +42,7 @@ with st.container():
 		if len(selected_rows) == 0:
 			hashtag = st.text_input('Introduce un hashtag', "#love")
 		else:
-			st.write(selected_rows[0].hashtag)
+			st.write(selected_rows[0]["hashtag"])
 			#hashtag = st.text_input('Introduce un hashtag', getattr(selected_rows[0],'hashtag'))
 			hashtag = st.text_input('Introduce un hashtag', "#madrid")
 
