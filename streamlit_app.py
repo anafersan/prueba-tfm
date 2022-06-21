@@ -18,7 +18,6 @@ with st.container():
 	st.title('Twitter prueba')
 
 	col1, col2 = st.columns([2, 3])
-	selected_rows[0].hashtag = '';
 
 	with col1:
 		# HEADER COL 1
@@ -39,7 +38,13 @@ with st.container():
 		# DESCRIPCIÓN
 		#st.write("PRUEBA PARA TFM TWITTER")
 		# FORMULARIO HASHTAG
-		hashtag = st.text_input('Introduce un hashtag', selected_rows[0].hashtag)
+		try:
+		    selected_rows[0].hashtag
+		except NameError:
+			hashtag = st.text_input('Introduce un hashtag', "#love")
+		else:
+			hashtag = st.text_input('Introduce un hashtag', selected_rows[0].hashtag)
+		
 
 # Model importing
 # Load the model (only executed once!)
