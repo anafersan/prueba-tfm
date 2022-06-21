@@ -42,6 +42,7 @@ with st.container():
 		try:
 		    selected_rows[0].hashtag
 		except NameError:
+			print('holiii')
 			hashtag = st.text_input('Introduce un hashtag', "#love")
 		else:
 			hashtag = st.text_input('Introduce un hashtag', selected_rows[0].hashtag)
