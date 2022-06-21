@@ -22,9 +22,9 @@ with st.container():
 	with col1:
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
-		df = pd.DataFrame({"col1": ["#love", "#ukranie", "#madrid", "#dog"]})
+		df = pd.DataFrame({"hashtag": ["#love", "#ukranie", "#madrid", "#dog"]})
 		options_builder = GridOptionsBuilder.from_dataframe(df)
-		options_builder.configure_column('col1', editable=True) 
+		options_builder.configure_column('hashtag', editable=True) 
 		options_builder.configure_selection("single")
 		grid_options = options_builder.build()
 
@@ -38,7 +38,7 @@ with st.container():
 		# DESCRIPCIÓN
 		#st.write("PRUEBA PARA TFM TWITTER")
 		# FORMULARIO HASHTAG
-		hashtag = st.text_input('Introduce un hashtag', '#Love')
+		hashtag = st.text_input('Introduce un hashtag', selected_rows[0].hashtag)
 
 # Model importing
 # Load the model (only executed once!)
