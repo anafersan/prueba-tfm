@@ -24,7 +24,7 @@ with st.container():
 		st.subheader("LISTADO DE TT")
 		df = pd.DataFrame({'hashtag': ['#ucrania', '#love', '#amistad', '#madrid', '#ia']})
 		options_builder = GridOptionsBuilder.from_dataframe(df)
-		options_builder.configure_column("hashtag", editable=False) 
+		options_builder.configure_column("hashtag", editable=True) 
 		options_builder.configure_selection("single")
 		grid_options = options_builder.build()
 
