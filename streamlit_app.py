@@ -40,7 +40,7 @@ with st.container():
 		#st.write("PRUEBA PARA TFM TWITTER")
 		# FORMULARIO HASHTAG
 		try:
-		    len(selected_rows) < 1
+		    len(selected_rows) == 0
 		except NameError:
 			hashtag = st.text_input('Introduce un hashtag', "#love")
 		else:
