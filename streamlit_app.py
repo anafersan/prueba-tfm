@@ -22,7 +22,7 @@ with st.container():
 	with col1:
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
-		df = pd.DataFrame({'col1': [1, 2, 3], 'col2': [4, 5, 6]})
+		df = pd.DataFrame({'Hashtag': ['#ucrania', '#love', '#amistad', '#madrid', '#ia']})
 		AgGrid(df)
 
 	with col2:
