@@ -23,6 +23,10 @@ with st.container():
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
 		df = pd.DataFrame({'Hashtag': ['#ucrania', '#love', '#amistad', '#madrid', '#ia']})
+		options_builder.configure_selection(“single”) 
+		grid_options = options_builder.build()
+		grid_return = AgGrid(df, grid_options) selected_rows = grid_return[“selected_rows”]
+		st.write(selected_rows)
 		AgGrid(df)
 
 	with col2:
