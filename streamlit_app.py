@@ -23,13 +23,18 @@ with st.container():
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
 		df = pd.DataFrame({'Hashtag': ['#ucrania', '#love', '#amistad', '#madrid', '#ia']})
-		options_builder = GridOptionsBuilder.from_dataframe(df)
-		options_builder.configure_column(‘Hashtag’, editable=False)
-		options_builder.configure_selection(“single”) 
-		grid_options = options_builder.build()
-		grid_return = AgGrid(df, grid_options) selected_rows = grid_return[“selected_rows”]
-		st.write(selected_rows)
-		AgGrid(df)
+		grid_options = {
+		    "columnDefs": [
+			{
+			    "headerName": "Hashtag",
+			    "field": "hashtag",
+			    "editable": False,
+			}
+		    ],
+		}
+		grid_return = AgGrid(df, grid_options)
+		new_df = grid_return["data"]
+		st.write(new_df)
 
 	with col2:
 		# DESCRIPCIÓN
