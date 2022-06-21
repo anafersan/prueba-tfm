@@ -23,7 +23,7 @@ with st.container():
 	with col1:
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
-		df = pd.DataFrame({"hashtag": ["#love", "#ukranie", "#madrid", "#dog"]})
+		df = pd.DataFrame({"hashtag": ["#love", "#ukranie", "#madrid", "#dog", "#anathebest"]})
 		options_builder = GridOptionsBuilder.from_dataframe(df)
 		options_builder.configure_column('hashtag', editable=True) 
 		options_builder.configure_selection("single")
@@ -32,7 +32,7 @@ with st.container():
 		grid_return = AgGrid(df, grid_options) 
 		selected_rows = grid_return["selected_rows"]
 
-		st.write(selected_rows)
+		st.write(selected_rows[0]["hashtag"])
 
 
 	with col2:
@@ -42,9 +42,8 @@ with st.container():
 		if len(selected_rows) == 0:
 			hashtag = st.text_input('Introduce un hashtag', "#love")
 		else:
-			st.write(selected_rows[0]["hashtag"])
 			#hashtag = st.text_input('Introduce un hashtag', getattr(selected_rows[0],'hashtag'))
-			hashtag = st.text_input('Introduce un hashtag', "#madrid")
+			hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
 
 # Model importing
 # Load the model (only executed once!)
