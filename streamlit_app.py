@@ -9,6 +9,7 @@ import numpy as np
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
 from streamlit_ace import st_ace
+from st_aggrid import AgGrid
 #import altair as alt
 
 
@@ -22,11 +23,8 @@ with st.container():
 	with col1:
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
-		# Spawn a new Ace editor
-		content = st_ace()
-
-		# Display editor's content as you type
-		content
+		df = pd.DataFrame({'col1': [1, 2, 3], 'col2': [4, 5, 6]})
+		AgGrid(df)
 
 	with col2:
 		# DESCRIPCIÓN
