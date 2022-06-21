@@ -87,16 +87,17 @@ for tweet in response.data:
 #chart_data = pd.DataFrame([sections], columns = labels)
 #st.bar_chart(chart_data)
 
-labels = 'Positive', 'Neutral', 'Negative'
-sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
-colors = ['g', 'y', 'r']
-fig1, ax1 = plt.subplots()
-ax1.pie(sections, labels=labels, colors=colors,
-        startangle=90,
-        explode = (0, 0, 0),
-        autopct = '%1.2f%%')
-ax1.axis('equal') # Try commenting this out.
-st.write("Pie Chart Twitter Sentiment Example")
-st.pyplot(fig1)
+with col2:
+	labels = 'Positive', 'Neutral', 'Negative'
+	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
+	colors = ['g', 'y', 'r']
+	fig1, ax1 = plt.subplots()
+	ax1.pie(sections, labels=labels, colors=colors,
+		startangle=90,
+		explode = (0, 0, 0),
+		autopct = '%1.2f%%')
+	ax1.axis('equal') # Try commenting this out.
+	st.write("Pie Chart Twitter Sentiment Example")
+	st.pyplot(fig1)
 
 
