@@ -18,6 +18,7 @@ with st.container():
 	st.title('Twitter prueba')
 
 	col1, col2 = st.columns([2, 3])
+	selected_rows = []
 
 	with col1:
 		# HEADER COL 1
