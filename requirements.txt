@@ -3,4 +3,5 @@ transformers
 tweepy==4.0
 torch
 altair
-st_aggrid
+streamlit-aggrid==0.2.3-2
+simplejson
