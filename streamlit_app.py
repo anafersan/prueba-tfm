@@ -22,6 +22,11 @@ with st.container():
 	with col1:
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
+		# Spawn a new Ace editor
+		content = st_ace()
+
+		# Display editor's content as you type
+		content
 
 	with col2:
 		# DESCRIPCIÓN
