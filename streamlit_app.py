@@ -28,7 +28,7 @@ with st.container():
 		df = pd.DataFrame({"hashtag": ["#love", "#ukranie", "#madrid", "#dog", "#anathebest"]})
 		options_builder = GridOptionsBuilder.from_dataframe(df)
 		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
-		options_builder.configure_column("hashtag", editable=False) 
+		options_builder.configure_column("hashtag", editable=False)
 		options_builder.configure_pagination(paginationAutoPageSize=True)
 		options_builder.configure_selection("single", use_checkbox=True)
 		
@@ -39,7 +39,7 @@ with st.container():
 			grid_options,
 			width='100%',
 			return_mode=return_mode
-		) 
+		)
 		
 		df = grid_return['data']
 		selected = grid_response['selected_rows']
