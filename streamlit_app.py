@@ -18,23 +18,23 @@ with st.container():
 	selected_rows = []
 	with col1:
 		# HEADER COL 1
-		st.subheader("LISTADO DE TT")
-		df = pd.DataFrame({"hashtag": ["#love", "#ukranie", "#madrid", "#dog", "#anathebest"]})
-		options_builder = GridOptionsBuilder.from_dataframe(df)
-		options_builder.configure_column('hashtag', value=True, editable=False) 
-		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
-		options_builder.configure_column("hashtag", editable=False) 
-		options_builder.configure_pagination(paginationAutoPageSize=True)
-		options_builder.configure_selection("single", use_checkbox=True)
-		grid_options = options_builder.build()
+		#st.subheader("LISTADO DE TT")
+		#df = pd.DataFrame({"hashtag": ["#love", "#ukranie", "#madrid", "#dog", "#anathebest"]})
+		#options_builder = GridOptionsBuilder.from_dataframe(df)
+		#options_builder.configure_column('hashtag', value=True, editable=False) 
+		#options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
+		#options_builder.configure_column("hashtag", editable=False) 
+		#options_builder.configure_pagination(paginationAutoPageSize=True)
+		#options_builder.configure_selection("single", use_checkbox=True)
+		#grid_options = options_builder.build()
 
-		grid_return = AgGrid(
-			df, 
-			grid_options,
-			width='100%'
-		) 
-		selected_rows = grid_return["selected_rows"]
-		st.write(selected_rows)
+		#grid_return = AgGrid(
+		#	df, 
+		#	grid_options,
+		#	width='100%'
+		#) 
+		#selected_rows = grid_return["selected_rows"]
+		#st.write(selected_rows)
 
 
 	with col2:
