@@ -1,199 +1,107 @@
-from distutils import errors
-from distutils.log import error
 import streamlit as st
-import pandas as pd 
+import pandas as pd
+#import plotly.figure_factory as ff
+import tweepy
+import matplotlib.pyplot as plt
 import numpy as np
-import altair as alt
-from itertools import cycle
+from transformers import AutoTokenizer, AutoModelForSequenceClassification
+from transformers import pipeline
+from st_aggrid import AgGrid, GridOptionsBuilder
+#import altair as alt
 
-from st_aggrid import GridOptionsBuilder, AgGrid, GridUpdateMode, DataReturnMode, JsCode
-
-np.random.seed(42)
-
-@st.cache(allow_output_mutation=True)
-def fetch_data(samples):
-    deltas = cycle([
-            pd.Timedelta(weeks=-2),
-            pd.Timedelta(days=-1),
-            pd.Timedelta(hours=-1),
-            pd.Timedelta(0),
-            pd.Timedelta(minutes=5),
-            pd.Timedelta(seconds=10),
-            pd.Timedelta(microseconds=50),
-            pd.Timedelta(microseconds=10)
-            ])
-    dummy_data = {
-        "date_time_naive":pd.date_range('2021-01-01', periods=samples),
-        "apple":np.random.randint(0,100,samples) / 3.0,
-        "banana":np.random.randint(0,100,samples) / 5.0,
-        "chocolate":np.random.randint(0,100,samples),
-        "group": np.random.choice(['A','B'], size=samples),
-        "date_only":pd.date_range('2020-01-01', periods=samples).date,
-        "timedelta":[next(deltas) for i in range(samples)],
-        "date_tz_aware":pd.date_range('2022-01-01', periods=samples, tz="Asia/Katmandu")
-    }
-    return pd.DataFrame(dummy_data)
-
-#Example controlers
-st.sidebar.subheader("St-AgGrid example options")
-
-sample_size = st.sidebar.number_input("rows", min_value=10, value=30)
-grid_height = st.sidebar.number_input("Grid height", min_value=200, max_value=800, value=300)
-
-return_mode = st.sidebar.selectbox("Return Mode", list(DataReturnMode.__members__), index=1)
-return_mode_value = DataReturnMode.__members__[return_mode]
-
-update_mode = st.sidebar.selectbox("Update Mode", list(GridUpdateMode.__members__), index=6)
-update_mode_value = GridUpdateMode.__members__[update_mode]
-
-#enterprise modules
-enable_enterprise_modules = st.sidebar.checkbox("Enable Enterprise Modules")
-if enable_enterprise_modules:
-    enable_sidebar =st.sidebar.checkbox("Enable grid sidebar", value=False)
-else:
-    enable_sidebar = False
-
-#features
-fit_columns_on_grid_load = st.sidebar.checkbox("Fit Grid Columns on Load")
-
-enable_selection=st.sidebar.checkbox("Enable row selection", value=True)
-if enable_selection:
-    st.sidebar.subheader("Selection options")
-    selection_mode = st.sidebar.radio("Selection Mode", ['single','multiple'], index=1)
-
-    use_checkbox = st.sidebar.checkbox("Use check box for selection", value=True)
-    if use_checkbox:
-        groupSelectsChildren = st.sidebar.checkbox("Group checkbox select children", value=True)
-        groupSelectsFiltered = st.sidebar.checkbox("Group checkbox includes filtered", value=True)
-
-    if ((selection_mode == 'multiple') & (not use_checkbox)):
-        rowMultiSelectWithClick = st.sidebar.checkbox("Multiselect with click (instead of holding CTRL)", value=False)
-        if not rowMultiSelectWithClick:
-            suppressRowDeselection = st.sidebar.checkbox("Suppress deselection (while holding CTRL)", value=False)
-        else:
-            suppressRowDeselection=False
-    st.sidebar.text("___")
-
-enable_pagination = st.sidebar.checkbox("Enable pagination", value=False)
-if enable_pagination:
-    st.sidebar.subheader("Pagination options")
-    paginationAutoSize = st.sidebar.checkbox("Auto pagination size", value=True)
-    if not paginationAutoSize:
-        paginationPageSize = st.sidebar.number_input("Page size", value=5, min_value=0, max_value=sample_size)
-    st.sidebar.text("___")
-
-df = fetch_data(sample_size)
-
-#Infer basic colDefs from dataframe types
-gb = GridOptionsBuilder.from_dataframe(df)
-
-#customize gridOptions
-gb.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
-
-gb.configure_column("date_tz_aware", type=["dateColumnFilter","customDateTimeFormat"], custom_format_string='yyyy-MM-dd HH:mm zzz', pivot=True)
-
-gb.configure_column("apple", type=["numericColumn","numberColumnFilter","customNumericFormat"], precision=2, aggFunc='sum')
-gb.configure_column("banana", type=["numericColumn", "numberColumnFilter", "customNumericFormat"], precision=1, aggFunc='avg')
-gb.configure_column("chocolate", type=["numericColumn", "numberColumnFilter", "customCurrencyFormat"], custom_currency_symbol="R$", aggFunc='max')
-
-#configures last row to use custom styles based on cell's value, injecting JsCode on components front end
-cellsytle_jscode = JsCode("""
-function(params) {
-    if (params.value == 'A') {
-        return {
-            'color': 'white',
-            'backgroundColor': 'darkred'
-        }
-    } else {
-        return {
-            'color': 'black',
-            'backgroundColor': 'white'
-        }
-    }
-};
-""")
-gb.configure_column("group", cellStyle=cellsytle_jscode)
-
-if enable_sidebar:
-    gb.configure_side_bar()
-
-if enable_selection:
-    gb.configure_selection(selection_mode)
-    if use_checkbox:
-        gb.configure_selection(selection_mode, use_checkbox=True, groupSelectsChildren=groupSelectsChildren, groupSelectsFiltered=groupSelectsFiltered)
-    if ((selection_mode == 'multiple') & (not use_checkbox)):
-        gb.configure_selection(selection_mode, use_checkbox=False, rowMultiSelectWithClick=rowMultiSelectWithClick, suppressRowDeselection=suppressRowDeselection)
-
-if enable_pagination:
-    if paginationAutoSize:
-        gb.configure_pagination(paginationAutoPageSize=True)
-    else:
-        gb.configure_pagination(paginationAutoPageSize=False, paginationPageSize=paginationPageSize)
-
-gb.configure_grid_options(domLayout='normal')
-gridOptions = gb.build()
-
-#Display the grid
-st.header("Streamlit Ag-Grid")
-st.markdown("""
-    AgGrid can handle many types of columns and will try to render the most human readable way.  
-    On editions, grid will fallback to string representation of data, DateTime and TimeDeltas are converted to ISO format.
-    Custom display formating may be applied to numeric fields, but returned data will still be numeric.
-""")
-
-grid_response = AgGrid(
-    df, 
-    gridOptions=gridOptions,
-    height=grid_height, 
-    width='100%',
-    data_return_mode=return_mode_value, 
-    update_mode=update_mode_value,
-    fit_columns_on_grid_load=fit_columns_on_grid_load,
-    allow_unsafe_jscode=True, #Set it to True to allow jsfunction to be injected
-    enable_enterprise_modules=enable_enterprise_modules,
-    )
-
-df = grid_response['data']
-selected = grid_response['selected_rows']
-selected_df = pd.DataFrame(selected).apply(pd.to_numeric, errors='coerce')
-
-
-with st.spinner("Displaying results..."):
-    #displays the chart
-    chart_data = df.loc[:,['apple','banana','chocolate']].assign(source='total')
-
-    if not selected_df.empty :
-        selected_data = selected_df.loc[:,['apple','banana','chocolate']].assign(source='selection')
-        chart_data = pd.concat([chart_data, selected_data])
-
-    chart_data = pd.melt(chart_data, id_vars=['source'], var_name="item", value_name="quantity")
-    #st.dataframe(chart_data)
-    chart = alt.Chart(data=chart_data).mark_bar().encode(
-        x=alt.X("item:O"),
-        y=alt.Y("sum(quantity):Q", stack=False),
-        color=alt.Color('source:N', scale=alt.Scale(domain=['total','selection'])),
-    )
-
-    st.header("Component Outputs - Example chart")
-    st.markdown("""
-    This chart is built with data returned from the grid. rows that are selected are also identified.
-    Experiment selecting rows, group and filtering and check how the chart updates to match.
-    """)
-
-    st.altair_chart(chart, use_container_width=True)
-
-    st.subheader("Returned grid data:") 
-    #returning as HTML table bc streamlit has issues when rendering dataframes with timedeltas:
-    # https://github.com/streamlit/streamlit/issues/3781
-    st.markdown(grid_response['data'].to_html(), unsafe_allow_html=True)
-
-    st.subheader("grid selection:")
-    st.write(grid_response['selected_rows'])
-
-    st.header("Generated gridOptions")
-    st.markdown("""
-        All grid configuration is done thorugh a dictionary passed as ```gridOptions``` parameter to AgGrid call.
-        You can build it yourself, or use ```gridOptionBuilder``` helper class.  
-        Ag-Grid documentation can be read [here](https://www.ag-grid.com/documentation)
-    """)
-    st.write(gridOptions)
+with st.container():
+	
+	# TITULO
+	st.title('Twitter prueba')
+	col1, col2 = st.columns([2, 3])
+	selected_rows = []
+	with col1:
+		# HEADER COL 1
+		st.subheader("LISTADO DE TT")
+		dataHastag = {
+			"col1": ["love", "ukranie", "madrid", "dog", "anathebest"],
+			"col2": ["love", "ukranie", "madrid", "dog", "anathebest"]
+		}
+		df = pd.DataFrame(dataHastag)
+		options_builder = GridOptionsBuilder.from_dataframe(df)
+		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
+		options_builder.configure_column("col1", type=["stringColumn","stringColumnFilter"])
+		options_builder.configure_selection("single", use_checkbox=True)
+		options_builder.configure_pagination(paginationAutoPageSize=True)
+		options_builder.configure_grid_options(domLayout='normal')
+		grid_options = options_builder.build()
+		grid_return = AgGrid(df, grid_options)
+		st.write(grid_options)
+		st.write(grid_return)
+		
+		
+	with col2:
+		# DESCRIPCIÓN
+		st.write("PRUEBA PARA TFM TWITTER")
+		# FORMULARIO HASHTAG
+		if len(selected_rows) == 0:
+			hashtag = st.text_input('Introduce un hashtag', "#love")
+		else:
+			hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
+# Model importing
+# Load the model (only executed once!)
+# NOTE: Don't set ttl or max_entries in this case
+@st.cache
+def load_model():
+	return AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
+  
+#@st.cache
+#def load_tokenizer():
+#	return AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
+  
+model = load_model()
+#tokenizer = load_tokenizer()
+tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
+#model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
+sentiment_task = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
+# Twitter API client
+bearer_token = "AAAAAAAAAAAAAAAAAAAAAGcdZgEAAAAADAbPiGFS3jT3w7bTECCewFv0oR8%3D4ZAl4MWV5Z8RmSrM99HaA5xhij9UkDxlYugx4tv8YO9Z8PcU0v"
+consumer_key = "3UkoMlYsWmPeUDYyTpDHb0V62"
+consumer_secret = "n9hqzC2j8KPuqQKwa6hJkM3eBPvN1fwE2Gahr1riygX1LkahUq"
+access_token = "1496230187687624709-t1AcjFLOJfRk0zbvKkqYtqRv7uuLiD"
+access_token_secret = "NwnmURf8nmm4VnoDVLZwPqxPwXIRmamf5RgtYY4aXmmjn"
+client = tweepy.Client(bearer_token, 
+                       consumer_key, 
+                       consumer_secret, 
+                       access_token, 
+                       access_token_secret)
+#Tweets extraction
+query =  hashtag + " lang:en -is:retweet" 
+response = client.search_recent_tweets(query=query,
+                                     tweet_fields = ["created_at", "text", "source", "public_metrics", "entities"],
+                                     user_fields = ["name", "username", "location", "verified", "description", "public_metrics"],
+                                     max_results = 100,
+                                     expansions='author_id'
+                                     )
+#Creamos lista vacía
+sentimientos = []
+#Obtenemos sentimientos de los tweets y almacenamos en la lista
+for tweet in response.data:
+  texto = tweet.text
+  sentiment = sentiment_task(texto)[0]
+  label = sentiment['label']
+  #print(label)
+  sentimientos[len(sentimientos):] = [label]
+# Gráfico distribución de sentimientos
+#labels = ['Positive', 'Neutral', 'Negative']
+#sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
+#colors = ['g', 'y', 'r']
+#chart_data = pd.DataFrame([sections], columns = labels)
+#st.bar_chart(chart_data)
+with col2:
+	labels = 'Positive', 'Neutral', 'Negative'
+	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
+	colors = ['g', 'y', 'r']
+	fig1, ax1 = plt.subplots()
+	ax1.pie(sections, labels=labels, colors=colors,
+		startangle=90,
+		explode = (0, 0, 0),
+		autopct = '%1.2f%%')
+	ax1.axis('equal') # Try commenting this out.
+	st.write("Pie Chart Twitter Sentiment Example")
+	st.pyplot(fig1)
