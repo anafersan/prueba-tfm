@@ -20,8 +20,6 @@ with st.container():
 	with col1:
 		# HEADER COL 1
 
-
-
 	with col2:
 		# DESCRIPCIÓN
 		#st.write("PRUEBA PARA TFM TWITTER")
