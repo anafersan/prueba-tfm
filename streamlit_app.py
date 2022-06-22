@@ -19,7 +19,7 @@ with st.container():
 	selected_rows = []
 	with col1:
 		# HEADER COL 1
-
+		st.subheader("LISTADO DE TT")
 	with col2:
 		# DESCRIPCIÓN
 		#st.write("PRUEBA PARA TFM TWITTER")
