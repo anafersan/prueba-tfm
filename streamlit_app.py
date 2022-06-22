@@ -12,9 +12,12 @@ from st_aggrid import AgGrid, GridOptionsBuilder
 @st.cache(allow_output_mutation=True)
 def fetch_data(samples):
     dummy_data = {
-        "hashtag":pd.date_range('2021-01-01', periods=samples),
+        "hashtag": ["#love"],
     }
     return pd.DataFrame(dummy_data)
+
+sample_size = st.sidebar.number_input("rows", min_value=10, value=30)
+df = fetch_data(sample_size)
 
 with st.container():
 	
@@ -25,11 +28,8 @@ with st.container():
 	with col1:
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
-		dataHastag = {
-			"col1": ["love", "ukranie", "madrid", "dog", "anathebest"],
-			"col2": ["love", "ukranie", "madrid", "dog", "anathebest"]
-		}
-		df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
+
+		#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
 		options_builder = GridOptionsBuilder.from_dataframe(df)
 		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
 		options_builder.configure_column("hashtag", type=["stringColumn","stringColumnFilter"])
