@@ -12,7 +12,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder
 @st.cache(allow_output_mutation=True)
 def fetch_data(samples):
     dummy_data = {
-        "hashtag": ["#love"],
+        "hashtag": ["#love", "#ukranie", "#USA", "#Madrid"],
     }
     return pd.DataFrame(dummy_data)
 
