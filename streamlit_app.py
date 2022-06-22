@@ -8,9 +8,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
-from st_aggrid import AgGrid, GridOptionsBuilder
+from st_aggrid import AgGrid, GridOptionsBuilder, DataReturnMode
 #import altair as alt
 
+return_mode = st.sidebar.selectbox("Return Mode", list(DataReturnMode.__members__), index=1)
+return_mode_value = DataReturnMode.__members__[return_mode]
 
 with st.container():
 	
@@ -30,7 +32,13 @@ with st.container():
 		use_checkbox = st.sidebar.checkbox("Use check box for selection", value=True)
 		grid_options = options_builder.build()
 
-		grid_return = AgGrid(df, grid_options) 
+		grid_return = AgGrid(
+			df, 
+			grid_options,
+			width='100%',
+			data_return_mode=return_mode_value
+			
+		) 
 		selected_rows = grid_return["selected_rows"]
 		st.write(selected_rows)
 
