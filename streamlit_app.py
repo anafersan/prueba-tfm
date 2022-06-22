@@ -25,7 +25,7 @@ with st.container():
 		}
 		df = pd.DataFrame(dataHastag)
 		options_builder = GridOptionsBuilder.from_dataframe(df)
-		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
+		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
 		options_builder.configure_column("col1", type=["stringColumn","stringColumnFilter"])
 		options_builder.configure_selection("single", use_checkbox=True)
 		options_builder.configure_pagination(paginationAutoPageSize=True)
