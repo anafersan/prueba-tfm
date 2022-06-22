@@ -20,7 +20,7 @@ with st.container():
 	with col1:
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
-		def dataHastag = {
+		dataHastag = {
 			"col1": ["love", "ukranie", "madrid", "dog", "anathebest"]
 		}
 		df = pd.DataFrame(dataHastag)
