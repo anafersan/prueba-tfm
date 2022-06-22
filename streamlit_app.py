@@ -16,8 +16,7 @@ def fetch_data(samples):
     }
     return pd.DataFrame(dummy_data)
 
-sample_size = st.sidebar.number_input("rows", min_value=10, value=30)
-df = fetch_data(sample_size)
+df = fetch_data(10)
 
 with st.container():
 	
