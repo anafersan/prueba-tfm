@@ -37,9 +37,11 @@ with st.container():
 		options_builder.configure_grid_options(domLayout='normal')
 		grid_options = options_builder.build()
 		grid_return = AgGrid(df, grid_options, update_mode="MODEL_CHANGED")
+		
+		
 		st.write(grid_options)
-		st.write(grid_return)
-		st.write(list(GridUpdateMode.__members__))
+		st.write(grid_return[0]["hashtag"])
+		selected_rows = grid_return[0]["hashtag"]
 		
 	with col2:
 		# DESCRIPCIÓN
