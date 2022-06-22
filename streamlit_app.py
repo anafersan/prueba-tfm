@@ -27,20 +27,23 @@ with st.container():
 		st.subheader("LISTADO DE TT")
 		df = pd.DataFrame({"hashtag": ["#love", "#ukranie", "#madrid", "#dog", "#anathebest"]})
 		options_builder = GridOptionsBuilder.from_dataframe(df)
-		options_builder.configure_column('hashtag', value=True, editable=False) 
+		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
+		options_builder.configure_column("hashtag", editable=False) 
+		options_builder.configure_pagination(paginationAutoPageSize=True)
 		options_builder.configure_selection("single", use_checkbox=True)
-		use_checkbox = st.sidebar.checkbox("Use check box for selection", value=True)
+		
 		grid_options = options_builder.build()
 
 		grid_return = AgGrid(
 			df, 
 			grid_options,
-			width='100%',
-			data_return_mode=return_mode_value
-			
+			width='100%',			
 		) 
+		
+		df = grid_return['data']
 		selected_rows = grid_return["selected_rows"]
-		st.write(selected_rows)
+		selected_df = pd.DataFrame(selected).apply(pd.to_numeric, errors='coerce')
+		st.write(selected_df)
 
 
 	with col2:
