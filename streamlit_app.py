@@ -36,7 +36,7 @@ with st.container():
 		options_builder.configure_pagination(paginationAutoPageSize=True)
 		options_builder.configure_grid_options(domLayout='normal')
 		grid_options = options_builder.build()
-		grid_return = AgGrid(df, grid_options)
+		grid_return = AgGrid(df, grid_options, update_mode=6,)
 		st.write(grid_options)
 		st.write(grid_return)
 		
