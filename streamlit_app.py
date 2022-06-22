@@ -39,8 +39,8 @@ with st.container():
 		) 
 		
 		df = grid_return['data']
-		selected_rows = grid_return["selected_rows"]
-		st.write(selected_rows)
+		selected = grid_response['selected_rows']
+		selected_df = pd.DataFrame(selected).apply(pd.to_numeric, errors='coerce')
 
 
 	with col2:
