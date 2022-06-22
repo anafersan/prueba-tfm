@@ -26,7 +26,7 @@ with st.container():
 		df = pd.DataFrame(dataHastag)
 		options_builder = GridOptionsBuilder.from_dataframe(df)
 		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
-		options_builder.configure_column("hashtag", value=True, editable=True, type=["stringColumn","stringColumnFilter"])
+		options_builder.configure_column("col1", value=True, editable=True, type=["stringColumn","stringColumnFilter"])
 		options_builder.configure_selection("single", use_checkbox=True)
 		options_builder.configure_pagination(paginationAutoPageSize=True)
 		options_builder.configure_grid_options(domLayout='normal')
