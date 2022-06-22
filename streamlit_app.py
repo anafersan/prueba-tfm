@@ -38,7 +38,7 @@ with st.container():
 			df, 
 			grid_options,
 			width='100%',
-			return_mode=return_mode
+			return_mode=return_mode,
 		)
 		
 		df = grid_return['data']
