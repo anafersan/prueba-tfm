@@ -20,7 +20,10 @@ with st.container():
 	with col1:
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
-		df = pd.DataFrame({"hashtag":["#love", "#ukranie", "#madrid", "#dog", "#anathebest"]})
+		def dataHastag = {
+			"col1": ["love", "ukranie", "madrid", "dog", "anathebest"]
+		}
+		df = pd.DataFrame(dataHastag)
 		options_builder = GridOptionsBuilder.from_dataframe(df)
 		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
 		options_builder.configure_column("hashtag", value=True, editable=True, type=["stringColumn","stringColumnFilter"])
