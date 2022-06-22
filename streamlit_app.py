@@ -7,10 +7,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
-from st_aggrid import AgGrid, GridOptionsBuilder, DataReturnMode
+from st_aggrid import AgGrid, GridOptionsBuilder
 #import altair as alt
-return_mode = st.sidebar.selectbox("Return Mode", list(DataReturnMode.__members__), index=1)
-return_mode_value = DataReturnMode.__members__[return_mode]
+
 with st.container():
 	
 	# TITULO
@@ -38,8 +37,6 @@ with st.container():
 		df = grid_return['data']
 		selected_rows = grid_return["selected_rows"]
 		st.write(selected_rows)
-		selected_df = pd.DataFrame(selected).apply(pd.to_numeric, errors='coerce')
-		st.write(selected_df)
 
 
 	with col2:
