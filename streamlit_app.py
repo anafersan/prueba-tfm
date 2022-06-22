@@ -40,8 +40,7 @@ with st.container():
 		
 		df = grid_return['data']
 		selected_rows = grid_return["selected_rows"]
-		selected_df = pd.DataFrame(selected_rows).apply(pd.to_numeric, errors='coerce')
-		st.write(selected_df)
+		st.write(selected_rows)
 
 
 	with col2:
