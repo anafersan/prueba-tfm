@@ -39,7 +39,7 @@ with st.container():
 		grid_return = AgGrid(df, grid_options, update_mode="MODEL_CHANGED")
 
 		st.write(grid_return)
-		selected_rows = grid_return[0]["hashtag"]
+		selected_rows = grid_return["selected_rows"]
 		
 	with col2:
 		# DESCRIPCIÓN
