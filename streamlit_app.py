@@ -20,9 +20,11 @@ with st.container():
 	with col1:
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
+		df = pd.DataFrame({"hashtag": ["#love", "#ukranie", "#madrid", "#dog", "#anathebest"]})
+		
 	with col2:
 		# DESCRIPCIÓN
-		#st.write("PRUEBA PARA TFM TWITTER")
+		st.write("PRUEBA PARA TFM TWITTER")
 		# FORMULARIO HASHTAG
 		if len(selected_rows) == 0:
 			hashtag = st.text_input('Introduce un hashtag', "#love")
