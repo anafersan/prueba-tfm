@@ -8,9 +8,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
-from st_aggrid import AgGrid, GridOptionsBuilder
+from st_aggrid import AgGrid, GridOptionsBuilder, DataReturnMode
 #import altair as alt
 
+return_mode = st.sidebar.selectbox("Return Mode", list(DataReturnMode.__members__), index=1)
+return_mode_value = DataReturnMode.__members__[return_mode]
 
 with st.container():
 	
@@ -35,7 +37,8 @@ with st.container():
 		grid_return = AgGrid(
 			df, 
 			grid_options,
-			width='100%',			
+			width='100%',
+			return_mode=return_mode
 		) 
 		
 		df = grid_return['data']
