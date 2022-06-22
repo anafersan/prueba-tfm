@@ -33,8 +33,6 @@ with st.container():
 			grid_options,
 			width='100%'
 		) 
-
-		df = grid_return['data']
 		selected_rows = grid_return["selected_rows"]
 		st.write(selected_rows)
 
