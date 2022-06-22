@@ -25,6 +25,7 @@ with st.container():
 		options_builder.configure_column('hashtag', value=True, editable=True)
 		options_builder.configure_default_column(value=True, enableRowGroup=True, editable=True)
 		options_builder.configure_selection("single", use_checkbox=True)
+		options_builder.configure_grid_options(domLayout='normal')
 		grid_options = options_builder.build()
 		grid_return = AgGrid(df, grid_options)
 		st.write(grid_return)
