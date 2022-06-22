@@ -25,8 +25,8 @@ with st.container():
 		st.subheader("LISTADO DE TT")
 		df = pd.DataFrame({"hashtag": ["#love", "#ukranie", "#madrid", "#dog", "#anathebest"]})
 		options_builder = GridOptionsBuilder.from_dataframe(df)
-		options_builder.configure_column('hashtag', editable=False) 
-		options_builder.configure_selection("single")
+		options_builder.configure_column('hashtag', value=True, editable=False) 
+		options_builder.configure_selection("single", use_checkbox=True)
 		use_checkbox = st.sidebar.checkbox("Use check box for selection", value=True)
 		grid_options = options_builder.build()
 
