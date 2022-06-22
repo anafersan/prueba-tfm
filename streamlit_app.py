@@ -6,7 +6,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
-from st_aggrid import AgGrid, GridOptionsBuilder
+from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 #import altair as alt
 
 @st.cache(allow_output_mutation=True)
@@ -36,10 +36,10 @@ with st.container():
 		options_builder.configure_pagination(paginationAutoPageSize=True)
 		options_builder.configure_grid_options(domLayout='normal')
 		grid_options = options_builder.build()
-		grid_return = AgGrid(df, grid_options, update_mode=6,)
+		grid_return = AgGrid(df, grid_options)
 		st.write(grid_options)
 		st.write(grid_return)
-		
+		st.write(list(GridUpdateMode.__members__))
 		
 	with col2:
 		# DESCRIPCIÓN
