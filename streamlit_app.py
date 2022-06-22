@@ -1,5 +1,3 @@
-
-
 import streamlit as st
 import pandas as pd
 #import plotly.figure_factory as ff
@@ -8,11 +6,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
-from st_aggrid import AgGrid, GridOptionsBuilder, DataReturnMode
+from st_aggrid import AgGrid, GridOptionsBuilder
 #import altair as alt
 
-return_mode = st.sidebar.selectbox("Return Mode", list(DataReturnMode.__members__), index=1)
-return_mode_value = DataReturnMode.__members__[return_mode]
 
 with st.container():
 	
@@ -27,23 +23,14 @@ with st.container():
 		st.subheader("LISTADO DE TT")
 		df = pd.DataFrame({"hashtag": ["#love", "#ukranie", "#madrid", "#dog", "#anathebest"]})
 		options_builder = GridOptionsBuilder.from_dataframe(df)
-		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, aggFunc='sum', editable=True)
-		options_builder.configure_column("hashtag", editable=False)
-		options_builder.configure_pagination(paginationAutoPageSize=True)
+		options_builder.configure_column('hashtag', value=True, editable=False) 
 		options_builder.configure_selection("single", use_checkbox=True)
-		
+		use_checkbox = st.sidebar.checkbox("Use check box for selection", value=True)
 		grid_options = options_builder.build()
 
-		grid_return = AgGrid(
-			df, 
-			grid_options,
-			width='100%',
-			return_mode=return_mode,
-		)
-		
-		df = grid_return['data']
-		selected = grid_response['selected_rows']
-		selected_df = pd.DataFrame(selected).apply(pd.to_numeric, errors='coerce')
+		grid_return = AgGrid(df, grid_options) 
+		selected_rows = grid_return["selected_rows"]
+		st.write(selected_rows)
 
 
 	with col2:
@@ -130,5 +117,4 @@ with col2:
 	ax1.axis('equal') # Try commenting this out.
 	st.write("Pie Chart Twitter Sentiment Example")
 	st.pyplot(fig1)
-
 
