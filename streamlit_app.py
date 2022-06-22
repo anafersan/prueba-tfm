@@ -32,7 +32,7 @@ with st.container():
 		df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
 		options_builder = GridOptionsBuilder.from_dataframe(df)
 		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
-		options_builder.configure_column("col1", type=["stringColumn","stringColumnFilter"])
+		options_builder.configure_column("hashtag", type=["stringColumn","stringColumnFilter"])
 		options_builder.configure_selection("single", use_checkbox=True)
 		options_builder.configure_pagination(paginationAutoPageSize=True)
 		options_builder.configure_grid_options(domLayout='normal')
