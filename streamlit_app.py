@@ -21,7 +21,8 @@ with st.container():
 		# HEADER COL 1
 		st.subheader("LISTADO DE TT")
 		dataHastag = {
-			"col1": ["love", "ukranie", "madrid", "dog", "anathebest"]
+			"col1": ["love", "ukranie", "madrid", "dog", "anathebest"],
+			"col2": ["love", "ukranie", "madrid", "dog", "anathebest"]
 		}
 		df = pd.DataFrame(dataHastag)
 		options_builder = GridOptionsBuilder.from_dataframe(df)
