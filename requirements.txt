@@ -5,3 +5,4 @@ torch
 altair
 streamlit-aggrid==0.2.3-2
 simplejson
+yweather
