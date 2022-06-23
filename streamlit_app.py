@@ -7,6 +7,7 @@ import numpy as np
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
+import yweather
 #import altair as alt
 
 @st.cache(allow_output_mutation=True)
@@ -110,3 +111,8 @@ with col2:
 	ax1.axis('equal') # Try commenting this out.
 	st.write("Pie Chart Twitter Sentiment Example")
 	st.pyplot(fig1)
+	
+get_woeid_client = yweather.Client()
+id_prueba = get_woeid_client.fetch_woeid("London")
+st.write(str(id_prueba))
+
