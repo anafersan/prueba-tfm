@@ -5,5 +5,5 @@ torch
 altair
 streamlit-aggrid==0.2.3-2
 simplejson
+json==3.10.5
 yweather
-json==3.8
