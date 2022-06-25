@@ -43,14 +43,16 @@ with st.container():
 
 		selected_rows = grid_return["selected_rows"]
 		
-		data = [{'location': 'Longon', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
-		json_string = json.dumps(data)
-		st.write(json_string)
-		
 		
 	with col2:
 		# DESCRIPCIÓN
 		st.write("PRUEBA PARA TFM TWITTER")
+		
+		# TODO: Lista de ubicaciones para añadirselo al select. Cargado desde un JSON
+		data = [{'location': 'London', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
+		json_string = json.dumps(data)
+		st.write(json_string)
+		
 		# FORMULARIO HASHTAG
 		if len(selected_rows) == 0:
 			hashtag = st.text_input('Introduce un hashtag', "#love")
