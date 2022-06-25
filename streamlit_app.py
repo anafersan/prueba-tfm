@@ -44,10 +44,8 @@ with st.container():
 		selected_rows = grid_return["selected_rows"]
 		
 		f = open("json.json")
-		data = json.load(f)
-		
-		for i in data['info']
-			print(i)
+		data = json.dump(f)
+
 		
 		
 	with col2:
