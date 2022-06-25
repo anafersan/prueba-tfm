@@ -30,7 +30,6 @@ st.write(json.dumps([
 ])
 
 with st.container():
-	
 	# TITULO
 	st.title('Twitter prueba')
 	col1, col2 = st.columns([2, 3])
