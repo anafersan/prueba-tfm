@@ -6,4 +6,4 @@ altair
 streamlit-aggrid==0.2.3-2
 simplejson
 yweather
-json==3.10.5
+json==3.8
