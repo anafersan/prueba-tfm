@@ -43,9 +43,14 @@ with st.container():
 
 		selected_rows = grid_return["selected_rows"]
 		
-		f = open ('json.json', "r")
-		data = json.loads(f.read())
-		st.write(data)
+		data = [
+		  {location: 'Longon', code: 'uk'},
+		  {location: 'Madrid', code: 'es'},
+		  {location: 'USA', code: 'us'},
+		  {location: 'Paris', code: 'pa'},
+		]
+		json_string = json.dumps(data)
+		st.write(json_string)
 		
 		
 	with col2:
