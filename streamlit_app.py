@@ -22,13 +22,6 @@ def fetch_data(samples):
 
 df = fetch_data(10)
 
-st.write(json.dumps([
-  {location: 'Longon', code: 'uk'},
-  {location: 'Madrid', code: 'es'},
-  {location: 'USA', code: 'us'},
-  {location: 'Paris', code: 'pa'},
-])
-
 with st.container():
 	# TITULO
 	st.title('Twitter prueba')
