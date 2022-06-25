@@ -22,7 +22,10 @@ def fetch_data(samples):
 
 df = fetch_data(10)
 
-st.write(json.dump("json.json"))
+with open('json.json') as f:
+   data = json.load(f)
+
+st.write(data)
 
 with st.container():
 	
