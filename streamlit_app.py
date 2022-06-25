@@ -29,7 +29,6 @@ st.write(json.dumps([
   {location: 'Paris', code: 'pa'},
 ])
 
-
 with st.container():
 	
 	# TITULO
