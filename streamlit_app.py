@@ -44,7 +44,7 @@ with st.container():
 		selected_rows = grid_return["selected_rows"]
 		
 		with open('json.json') as f:
-			data = json.load(f)
+			data = json.dumps(f)
 
 		st.write(data)
 
