@@ -43,7 +43,7 @@ with st.container():
 
 		selected_rows = grid_return["selected_rows"]
 		
-		data = {'locations': [{'location': 'Longon', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
+		data = {'locations': [{'location': 'Longon', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]}
 		json_string = json.dumps(data)
 		st.write(json_string)
 		
