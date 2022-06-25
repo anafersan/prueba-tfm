@@ -43,7 +43,12 @@ with st.container():
 
 		selected_rows = grid_return["selected_rows"]
 		
-		st.write(json.dumps(["apple", "bananas"]))
+		f = open("json.json")
+		data = json.load(f)
+		
+		for i in data
+			st.write(i)
+		
 		
 	with col2:
 		# DESCRIPCIÓN
