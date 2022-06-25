@@ -1,0 +1,6 @@
+[
+  {location: 'Longon', code: 'uk'},
+  {location: 'Madrid', code: 'es'},
+  {location: 'USA', code: 'us'},
+  {location: 'Paris', code: 'pa'},
+]
