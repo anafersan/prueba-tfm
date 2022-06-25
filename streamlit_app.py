@@ -51,7 +51,8 @@ with st.container():
 		# TODO: Lista de ubicaciones para añadirselo al select. Cargado desde un JSON
 		data = [{'location': 'London', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
 		json_string = json.dumps(data)
-		st.write(json_string)
+		# Select box con elemento del json de localizaciones
+		# TODO: Mirar como poner elemento of select box
 		st.selectbox("Listado", list(data), index=1)
 		
 		# FORMULARIO HASHTAG
