@@ -45,9 +45,7 @@ with st.container():
 		
 		f = open("json.json")
 		data = json.load(f)
-		
-		for i in data
-			st.write(i)
+		st.write(data)
 		
 		
 	with col2:
