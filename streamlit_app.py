@@ -8,7 +8,6 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 import yweather
-import json
 
 #import altair as alt
 
