@@ -43,6 +43,8 @@ with st.container():
 
 		selected_rows = grid_return["selected_rows"]
 		
+		st.write(json.dumps(["apple", "bananas"]))
+		
 	with col2:
 		# DESCRIPCIÓN
 		st.write("PRUEBA PARA TFM TWITTER")
