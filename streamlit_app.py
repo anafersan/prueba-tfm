@@ -52,6 +52,7 @@ with st.container():
 		data = [{'location': 'London', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
 		json_string = json.dumps(data)
 		st.write(json_string)
+		st.selectbox("Listado", list(json_string), index=1)
 		
 		# FORMULARIO HASHTAG
 		if len(selected_rows) == 0:
