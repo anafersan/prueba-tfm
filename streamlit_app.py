@@ -22,10 +22,13 @@ def fetch_data(samples):
 
 df = fetch_data(10)
 
-with open('json.json') as f:
-	data = json.load(f)
+st.write(json.dumps([
+  {location: 'Longon', code: 'uk'},
+  {location: 'Madrid', code: 'es'},
+  {location: 'USA', code: 'us'},
+  {location: 'Paris', code: 'pa'},
+])
 
-st.write(data)
 
 with st.container():
 	
