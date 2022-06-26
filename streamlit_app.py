@@ -72,7 +72,8 @@ with st.container():
 		#if len(selected_rows) == 0:
 		#	hashtag = st.text_input('Introduce un hashtag', "#love")
 		#else:
-		hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
+		#hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
+		hashtag = selected_rows[0]["hashtag"]
 				
 
 # Model importing
