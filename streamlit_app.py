@@ -11,7 +11,11 @@ import yweather
 import json
 
 
-#import altair as alt
+
+# PAGE CONFIG 
+
+st.set_page_config(layout="wide")
+st.title('Find Treding Topics by location')
 
 @st.cache(allow_output_mutation=True)
 def fetch_data(samples):
@@ -22,8 +26,6 @@ def fetch_data(samples):
 
 df = fetch_data(10)
 
-st.set_page_config(layout="wide")
-st.title('Find Treding Topics by location')
 
 
 with st.container():
