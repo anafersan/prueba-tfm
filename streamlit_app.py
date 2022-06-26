@@ -42,7 +42,7 @@ df = fetch_data(10)
 
 with st.container():
 	
-	col1, col2, col3, col4, col5 = st.columns([1, 0.25, 2.25, 0.25, 1.75])
+	col1, col2, col3, col4, col5 = st.columns([1, 0.25, 2, 0.25, 1.75])
 	selected_rows = []
 	with col1:
 		# HEADER COL 1 - PART 1
