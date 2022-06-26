@@ -22,6 +22,9 @@ def fetch_data(samples):
 
 df = fetch_data(10)
 
+st.title('Find Treding Topics by location')
+st.set_page_config(layout="wide")
+
 with st.container():
 	
 	# TITULO
@@ -31,8 +34,7 @@ with st.container():
         #	layout="wide"
     	#)
 	
-	st.title('Find Treding Topics by location')
-	st.set_page_config(layout="wide")
+	
 	col1, col2 = st.columns([2, 3])
 	selected_rows = []
 	with col1:
