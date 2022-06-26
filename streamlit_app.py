@@ -233,7 +233,7 @@ with col4:
 	x_labels = [min(x),max(x)]
 	fig3, ax3 = plt.subplots()
 	ax3.plot(x, y)
-	ax3.xticks(ticks=x_ticks, labels=x_labels)
+	#ax3.xticks(ticks=x_ticks, labels=x_labels)
 	st.pyplot(fig3)
 
 	
