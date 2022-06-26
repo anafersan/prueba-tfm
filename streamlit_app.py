@@ -106,11 +106,68 @@ client = tweepy.Client(bearer_token,
 #Tweets extraction
 query =  hashtag + " lang:en -is:retweet" 
 response = client.search_recent_tweets(query=query,
-                                     tweet_fields = ["created_at", "text", "source", "public_metrics", "entities"],
+                                     tweet_fields = ["created_at", "text", "lang", "source", "public_metrics", "entities"],
                                      user_fields = ["name", "username", "location", "verified", "description", "public_metrics"],
                                      max_results = 100,
                                      expansions='author_id'
                                      )
+
+#Tweets formateo
+# create a list of records
+tweet_info_ls = []
+
+# iterate over each tweet and corresponding user details
+for tweet, user in zip(response.data, response.includes['users']):
+    
+    if "entities" in dict(tweet):
+      # Extract info for hashtags
+      if "hashtags" in dict(tweet.entities):
+        hashtags = tweet.entities['hashtags']
+        str_hashtags = ""
+        if len(hashtags) > 1:
+          for hashtag in hashtags:
+            str_hashtags = str_hashtags + hashtag['tag'] + " | "
+        else:
+          str_hashtags = hashtag['tag']
+      else: str_hashtags = ""
+
+      # Extract info for mentions
+      if "mentions" in dict(tweet.entities):
+        mentions = tweet.entities['mentions']
+        str_mentions = ""
+        if len(mentions) > 1:
+          for mention in mentions:
+            str_mentions = str_mentions + mention['username'] + " | "
+        else:
+          str_mentions = mention['username']
+      else: str_mentions = ""
+    else:
+      str_hashtags = ""
+      str_mentions = ""
+
+    # Include tweet info in the csv
+    tweet_info = {
+        'created_at': tweet.created_at,
+        'username': user.username,
+        'location': user.location,
+        'idioma': tweet.lang,
+        'followers': user.public_metrics['followers_count'],
+        'verified': user.verified,
+        'text': tweet.text,
+        'retweet_count': tweet.public_metrics['retweet_count'],
+        'favorite_count': tweet.public_metrics['like_count'],
+        'hashtags': str_hashtags,
+        'user_mentions': str_mentions
+    }
+    tweet_info_ls.append(tweet_info)
+    
+    # Write in de csv
+    #csvWriter.writerow([tweet.created_at, user.username, user.location, user.public_metrics['followers_count'], user.verified, tweet.text, tweet.public_metrics['retweet_count'], tweet.public_metrics['like_count'], str_hashtags, str_mentions])  
+
+# create dataframe from the extracted records
+tweets_df = pd.DataFrame(tweet_info_ls)
+
+
 #Creamos lista vacía
 sentimientos = []
 #Obtenemos sentimientos de los tweets y almacenamos en la lista
@@ -128,7 +185,12 @@ for tweet in response.data:
 #st.bar_chart(chart_data)
 with col2:
 	# HEADER COL 2
-	st.subheader("3. Observa los resultados")
+	st.header("3. Observa los resultados")
+	
+	#METRICA 1 - Tweets recogidos
+	tweets_recogidos = len(tweets_df)
+	st.subheader("Tweets recogidos")
+	st.metric("Tweets recogidos", tweets_recogidos)
 	
 	labels = 'Positive', 'Neutral', 'Negative'
 	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
