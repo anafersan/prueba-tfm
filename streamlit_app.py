@@ -244,7 +244,7 @@ with col4:
 	fig4 = plt.figure()
 	ax4 = fig4.add_axes([0,0,1,1])
 	labels4 = tweets_df['idioma'].drop_duplicates()
-	labels4 = labels4.reindex(index=labels.index[::-1])
+	labels4 = labels4.reindex(index=labels4.index[::-1])
 	values4 = tweets_df['idioma'].value_counts().sort_values(ascending=True)
 	ax4.barh(labels4,values4)
 	st.pyplot(fig4)
