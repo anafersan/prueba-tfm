@@ -41,7 +41,7 @@ df = fetch_data(10)
 
 with st.container():
 	
-	col1, col2, col3 = st.columns([1, 2, 2])
+	col1, col2, col3, col4 = st.columns([1, 0.25, 2, 2])
 	selected_rows = []
 	with col1:
 		# HEADER COL 1 - PART 1
@@ -185,10 +185,12 @@ for tweet in response.data:
 #colors = ['g', 'y', 'r']
 #chart_data = pd.DataFrame([sections], columns = labels)
 #st.bar_chart(chart_data)
+
 with col2:
 	# HEADER COL 2
 	st.header("3. Observa los resultados")
 	
+with col3:
 	#METRICA 1 - Tweets recogidos
 	st.subheader("Tweets recogidos")
 	tweets_recogidos = len(tweets_df)
