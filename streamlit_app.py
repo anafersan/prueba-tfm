@@ -232,10 +232,18 @@ with col4:
 	rango = int(dif_minmax.total_seconds() / 60)
 	x_ticks = [0,rango]
 	x_labels = [min(x),max(x)]
-	fig3, ax3 = plt.subplots()
-	ax3.plot(x, y)
+	#fig3, ax3 = plt.subplots()
+	#ax3.plot(x, y)
 	#ax3.xticks(ticks=x_ticks, labels=x_labels)
-	plt.set_xticklabels(ticks=x_ticks, labels=x_labels)
+	#plt.set_xticklabels(ticks=x_ticks, labels=x_labels)
+	#st.pyplot(fig3)
+	
+	#plt.plot(x, y)
+
+	# You can specify a rotation for the tick labels in degrees or with keywords.
+	fig3 = plt.figure(figsize=(12, 5))
+	plt.plot(x, y)
+	plt.xticks(ticks=x_ticks, labels=x_labels)
 	st.pyplot(fig3)
 	
 
