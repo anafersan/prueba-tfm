@@ -204,19 +204,31 @@ with col3:
 	st.write("El alcance se calcula como el número de seguidores de las cuentas que han publicado el contenido recogido más el número de RTs de los tweets")
 	st.metric("Usuarios potencialmente alcanzados", total_alcance)
 	
-
-	
-	labels = 'Positive', 'Neutral', 'Negative'
-	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
-	colors = ['g', 'y', 'r']
-	fig1, ax1 = plt.subplots()
-	ax1.pie(sections, labels=labels, colors=colors,
-		startangle=90,
-		explode = (0, 0, 0),
-		autopct = '%1.2f%%')
-	ax1.axis('equal') # Try commenting this out.
-	st.write("Pie Chart Twitter Sentiment Example")
-	st.pyplot(fig1)
+	#METRICA 6 - Otros hashtags 
+	st.subheader("Temas relacionados")
+	st.write("Se indican los 20 hashtags más añadidos por los usuarios a los tweets del tema seleccionado")
+	all_hashtags = []
+	for i in tweets_df.index:
+	  hashtags = tweets_df['hashtags'][i]
+	  if hashtags != "":
+	    hashtags = hashtags.split(" | ")
+	    if len(hashtags) > 1:
+	      hashtags.pop()
+	      all_hashtags = all_hashtags + hashtags
+	    else:
+	      if hashtags[0] != "":
+		all_hashtags = all_hashtags + hashtags
+	fig6 = plt.figure()
+	ax6 = fig6.add_axes([0,0,1,1])
+	hashtags_df = pd.DataFrame(all_hashtags, columns =['hs'])
+	labels6 = hashtags_df['hs'].drop_duplicates()
+	labels6 = labels6[:20]
+	labels6 = hashtags_df['hs'].reindex(index=labels.index[::-1])
+	values6 = hashtags_df.value_counts()
+	values6 = values6[:20]
+	values6 = values6.sort_values(ascending=True)
+	ax6.barh(labels6,values6)
+	st.pyplot(fig6)
 	
 
 with col4:
@@ -248,10 +260,23 @@ with col4:
 	values4 = tweets_df['idioma'].value_counts().sort_values(ascending=True)
 	ax4.barh(labels4,values4)
 	st.pyplot(fig4)
+	
+	#METRICA 5 - Sentimiento
+	st.subheader("Distribución del sentimiento")
+	st.write("Distribución del sentimiento detectado en los tweets")
+	labels = 'Positive', 'Neutral', 'Negative'
+	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
+	colors = ['g', 'y', 'r']
+	fig1, ax1 = plt.subplots()
+	ax1.pie(sections, labels=labels, colors=colors,
+		startangle=90,
+		explode = (0, 0, 0),
+		autopct = '%1.2f%%')
+	ax1.axis('equal') # Try commenting this out.
+	st.write("Pie Chart Twitter Sentiment Example")
+	st.pyplot(fig1)
 
 	
-
-
 	
 	
 	
