@@ -224,7 +224,8 @@ with col4:
 	st.header(" ")
 	
 	#METRICA 3 - Tweets en el tiempo 
-	st.subheader("Número de tweets según fecha de publicación")
+	st.subheader("Número de tweets según hora de publicación")
+	st.write("Se indica el número de tweets según la fecha en la que fueron publicados en Twitter")
 	tweets_df['hora_minuto'] = tweets_df['created_at'].dt.strftime("%d/%m/%y %H:%M")
 	x = tweets_df['hora_minuto'].drop_duplicates()
 	y = tweets_df['hora_minuto'].value_counts()
@@ -236,6 +237,18 @@ with col4:
 	plt.plot(x, y)
 	plt.xticks(ticks=x_ticks, labels=x_labels)
 	st.pyplot(fig3)
+	
+	#METRICA 4 - Tweets según idioma
+	st.subheader("Número de tweets según idioma de publicación")
+	st.write("Se indica el idioma detectado en el texto del tweet")
+	fig4 = plt.figure()
+	ax4 = fig4.add_axes([0,0,1,1])
+	labels4 = tweets_df['idioma'].drop_duplicates()
+	labels4 = labels4.reindex(index=labels.index[::-1])
+	values4 = tweets_df['idioma'].value_counts().sort_values(ascending=True)
+	ax4.barh(labels4,values4)
+	st.pyplot(fig4)
+
 	
 
 
