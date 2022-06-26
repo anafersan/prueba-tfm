@@ -226,7 +226,7 @@ with col3:
 	hashtags_df = pd.DataFrame(all_hashtags, columns =['hs'])
 	labels6 = hashtags_df['hs'].drop_duplicates()
 	labels6 = labels6[:20]
-	labels6 = hashtags_df['hs'].reindex(index=labels.index[::-1])
+	labels6 = hashtags_df['hs'].reindex(index=labels6.index[::-1])
 	values6 = hashtags_df.value_counts()
 	values6 = values6[:20]
 	values6 = values6.sort_values(ascending=True)
