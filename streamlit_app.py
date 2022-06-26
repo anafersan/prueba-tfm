@@ -28,7 +28,7 @@ with st.container():
 	st.set_page_config(
         	page_title="Find Treding Topics by location",
         	page_icon="⚕️",
-        	layout="wide"
+        	#layout="wide"
     	)
 	
 	#st.title('Twitter prueba')
