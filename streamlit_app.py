@@ -22,8 +22,9 @@ def fetch_data(samples):
 
 df = fetch_data(10)
 
-st.title('Find Treding Topics by location')
 st.set_page_config(layout="wide")
+st.title('Find Treding Topics by location')
+
 
 with st.container():
 	
