@@ -13,9 +13,17 @@ import json
 
 
 # PAGE CONFIG 
-
 st.set_page_config(layout="wide")
-st.title('Find Treding Topics by location')
+st.title('Encuentra Treding Topics según ubicación')
+st.write("Busca la ubicación sobre la que desees conocer qué temas son tendencia")
+st.markdown(
+        "*Busca la ubicación* sobre la que desees conocer qué *temas* son *tendencia*. "
+	"*Selecciona el tema* que más te interese "
+	"Observa las métricas calculadas sobre los tweets que se han recogido. "
+    )
+st.markdown(
+        "Esto es una *demo desarrollada con fines académicos* que en ningún caso debe usarse con fines comerciales "
+    )
 
 @st.cache(allow_output_mutation=True)
 def fetch_data(samples):
@@ -51,8 +59,6 @@ with st.container():
 		
 		
 	with col2:
-		# DESCRIPCIÓN
-		st.write("PRUEBA PARA TFM TWITTER")
 		
 		# TODO: Lista de ubicaciones para añadirselo al select. Cargado desde un JSON
 		data = [{'location': 'London', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
