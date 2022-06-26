@@ -69,10 +69,10 @@ with st.container():
 		selected_rows = grid_return["selected_rows"]
 		
 		# FORMULARIO HASHTAG
-		if len(selected_rows) == 0:
-			hashtag = st.text_input('Introduce un hashtag', "#love")
-		else:
-			hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
+		#if len(selected_rows) == 0:
+		#	hashtag = st.text_input('Introduce un hashtag', "#love")
+		#else:
+		#	hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
 				
 
 # Model importing
@@ -141,7 +141,5 @@ with col2:
 	st.write("Pie Chart Twitter Sentiment Example")
 	st.pyplot(fig1)
 	
-get_woeid_client = yweather.Client()
-id_prueba = get_woeid_client.fetch_woeid("London")
-st.write(str(id_prueba))
+
 
