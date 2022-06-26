@@ -235,7 +235,7 @@ with col4:
 	fig3, ax3 = plt.subplots()
 	ax3.plot(x, y)
 	#ax3.xticks(ticks=x_ticks, labels=x_labels)
-	ax3.set_xticklabels(ticks=x_ticks, labels=x_labels)
+	plt.set_xticklabels(ticks=x_ticks, labels=x_labels)
 	st.pyplot(fig3)
 	
 
