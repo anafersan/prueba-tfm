@@ -9,6 +9,7 @@ from transformers import pipeline
 from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 import yweather
 import json
+from datetime import datetime
 
 
 
@@ -104,7 +105,7 @@ client = tweepy.Client(bearer_token,
                        access_token, 
                        access_token_secret)
 #Tweets extraction
-query =  hashtag + " lang:en -is:retweet" 
+query =  hashtag + " -is:retweet" 
 response = client.search_recent_tweets(query=query,
                                      tweet_fields = ["created_at", "text", "lang", "source", "public_metrics", "entities"],
                                      user_fields = ["name", "username", "location", "verified", "description", "public_metrics"],
