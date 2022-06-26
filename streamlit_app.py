@@ -188,7 +188,7 @@ for tweet in response.data:
 
 
 with col3:
-	# HEADER COL 2
+	# HEADER COL 3
 	st.header("3. Observa los resultados")
 	
 	#METRICA 1 - Tweets recogidos
@@ -203,8 +203,7 @@ with col3:
 	st.write("El alcance se calcula como el número de seguidores de las cuentas que han publicado el contenido recogido más el número de RTs de los tweets")
 	st.metric("Usuarios potencialmente alcanzados", total_alcance)
 	
-	#METRICA 3 - Tweets en el tiempo 
-	
+
 	
 	labels = 'Positive', 'Neutral', 'Negative'
 	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
@@ -219,4 +218,26 @@ with col3:
 	st.pyplot(fig1)
 	
 
+with col4:
+	# HEADER COL 4
+	st.header("")
+	
+	#METRICA 3 - Tweets en el tiempo 
+	tweets_df['hora_minuto'] = tweets_df['created_at'].dt.strftime("%d/%m/%y %H:%M")
+	x = tweets_df['hora_minuto'].drop_duplicates()
+	y = tweets_df['hora_minuto'].value_counts()
+	dif_minmax = datetime.strptime(max(x), '%d/%m/%y %H:%M') - datetime.strptime(min(x), '%d/%m/%y %H:%M')
+	rango = int(dif_minmax.total_seconds() / 60)
+	x_ticks = [0,rango]
+	x_labels = [min(x),max(x)]
+	fig3, ax3 = plt.subplots()
+	ax3.plot(x, y)
+	ax3.xticks(ticks=x_ticks, labels=x_labels)
+	st.pyplot(fig3)
 
+	
+	
+	
+	
+	
+	
