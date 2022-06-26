@@ -208,17 +208,19 @@ with col3:
 	st.subheader("Temas relacionados")
 	st.write("Se indican los 20 hashtags más añadidos por los usuarios a los tweets del tema seleccionado")
 	all_hashtags = []
+	#Se recorre la lista de tweets
+	# --------------------------------------------
 	for i in tweets_df.index:
 		hashtags = tweets_df['hashtags'][i]
 		if hashtags != "":
 			hashtags = hashtags.split(" | ")
 			if len(hashtags) > 1:
 				hashtags.pop()
-	      			all_hashtags = all_hashtags + hashtags
+				all_hashtags = all_hashtags + hashtags
 	    		else:
 				if hashtags[0] != "":
 					all_hashtags = all_hashtags + hashtags
-	
+	# --------------------------------------------
 	fig6 = plt.figure()
 	ax6 = fig6.add_axes([0,0,1,1])
 	hashtags_df = pd.DataFrame(all_hashtags, columns =['hs'])
