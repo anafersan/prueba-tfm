@@ -45,7 +45,7 @@ with st.container():
 	selected_rows = []
 	with col1:
 		# HEADER COL 1 - PART 1
-		st.subheader("Selecciona una ubicación")
+		st.subheader("1. Selecciona una ubicación")
 		# TODO: Lista de ubicaciones para añadirselo al select. Cargado desde un JSON
 		data = [{'location': 'London', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
 		json_string = json.dumps(data)
@@ -54,7 +54,7 @@ with st.container():
 		st.selectbox("Listado", list(data), index=1)
 		
 		# HEADER COL 1 - PART 2
-		st.subheader("Selecciona una tendencia")
+		st.subheader("2. Selecciona una tendencia")
 
 		#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
 		options_builder = GridOptionsBuilder.from_dataframe(df)
@@ -126,6 +126,9 @@ for tweet in response.data:
 #chart_data = pd.DataFrame([sections], columns = labels)
 #st.bar_chart(chart_data)
 with col2:
+	# HEADER COL 2
+	st.subheader("3. Observa los resultados")
+	
 	labels = 'Positive', 'Neutral', 'Negative'
 	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
 	colors = ['g', 'y', 'r']
