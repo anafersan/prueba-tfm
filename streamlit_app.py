@@ -30,15 +30,8 @@ df = fetch_data(10)
 
 with st.container():
 	
-	# TITULO
-	#st.set_page_config(
-        #	page_title="Find Treding Topics by location",
-        #	page_icon="⚕️",
-        #	layout="wide"
-    	#)
 	
-	
-	col1, col2 = st.columns([2, 3])
+	col1, col2 = st.columns([1, 4])
 	selected_rows = []
 	with col1:
 		# HEADER COL 1
