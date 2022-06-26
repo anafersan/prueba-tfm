@@ -23,8 +23,15 @@ def fetch_data(samples):
 df = fetch_data(10)
 
 with st.container():
+	
 	# TITULO
-	st.title('Twitter prueba')
+	st.set_page_config(
+        	page_title="Find Treding Topics by location",
+        	page_icon="⚕️",
+        	layout="wide",
+    	)
+	
+	#st.title('Twitter prueba')
 	col1, col2 = st.columns([2, 3])
 	selected_rows = []
 	with col1:
