@@ -221,9 +221,10 @@ with col3:
 
 with col4:
 	# HEADER COL 4
-	st.header("")
+	st.header(" ")
 	
 	#METRICA 3 - Tweets en el tiempo 
+	st.subheader("Número de tweets según fecha de publicación")
 	tweets_df['hora_minuto'] = tweets_df['created_at'].dt.strftime("%d/%m/%y %H:%M")
 	x = tweets_df['hora_minuto'].drop_duplicates()
 	y = tweets_df['hora_minuto'].value_counts()
@@ -235,6 +236,13 @@ with col4:
 	ax3.plot(x, y)
 	#ax3.xticks(ticks=x_ticks, labels=x_labels)
 	st.pyplot(fig3)
+	
+	col41, col42= st.columns([1, 1])
+	
+	with col41:
+		st.write("hola")
+	with col42:
+		st.write("hola2")
 
 	
 	
