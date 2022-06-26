@@ -42,7 +42,7 @@ df = fetch_data(10)
 
 with st.container():
 	
-	col1, col2, col3, col4, col5 = st.columns([1, 0.25, 2, 0.25, 2])
+	col1, col2, col3, col4, col5 = st.columns([1, 0.25, 2.25, 0.25, 1.75])
 	selected_rows = []
 	with col1:
 		# HEADER COL 1 - PART 1
@@ -233,6 +233,20 @@ with col3:
 	ax6.barh(labels6,values6)
 	st.pyplot(fig6)
 	
+	#METRICA 5 - Sentimiento
+	st.subheader("Distribución del sentimiento")
+	st.write("Distribución del sentimiento detectado en los tweets")
+	labels = 'Positive', 'Neutral', 'Negative'
+	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
+	colors = ['g', 'y', 'r']
+	fig1, ax1 = plt.subplots()
+	ax1.pie(sections, labels=labels, colors=colors,
+		startangle=90,
+		explode = (0, 0, 0),
+		autopct = '%1.2f%%')
+	ax1.axis('equal') # Try commenting this out.
+	st.pyplot(fig1)
+	
 
 with col5:
 	# HEADER COL 4
@@ -264,19 +278,7 @@ with col5:
 	ax4.barh(labels4,values4)
 	st.pyplot(fig4)
 	
-	#METRICA 5 - Sentimiento
-	st.subheader("Distribución del sentimiento")
-	st.write("Distribución del sentimiento detectado en los tweets")
-	labels = 'Positive', 'Neutral', 'Negative'
-	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
-	colors = ['g', 'y', 'r']
-	fig1, ax1 = plt.subplots()
-	ax1.pie(sections, labels=labels, colors=colors,
-		startangle=90,
-		explode = (0, 0, 0),
-		autopct = '%1.2f%%')
-	ax1.axis('equal') # Try commenting this out.
-	st.pyplot(fig1)
+
 
 	
 	
