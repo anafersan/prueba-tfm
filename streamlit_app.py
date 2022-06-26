@@ -190,9 +190,18 @@ with col2:
 	st.header("3. Observa los resultados")
 	
 	#METRICA 1 - Tweets recogidos
-	tweets_recogidos = len(tweets_df)
 	st.subheader("Tweets recogidos")
-	st.metric("Tweets recogidos", tweets_recogidos)
+	tweets_recogidos = len(tweets_df)
+	st.metric("Número de tweets recolectados", tweets_recogidos)
+	
+	
+	#METRICA 2 - Alcance 
+	st.subheader("Alcance")
+	total_alcance = tweets_df['followers'].sum() + tweets_df['retweet_count'].sum()
+	st.metric("El alcance se calcula como el número de seguidores de las cuentas que han publicado el contenido recogido más el número de RTs de los tweets", total_alcance)
+	
+	#METRICA 3 - Tweets en el tiempo 
+	
 	
 	labels = 'Positive', 'Neutral', 'Negative'
 	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
