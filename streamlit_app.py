@@ -217,7 +217,7 @@ with col3:
 			if len(hashtags) > 1:
 				hashtags.pop()
 				all_hashtags = all_hashtags + hashtags
-	    		else:
+	    else:
 				if hashtags[0] != "":
 					all_hashtags = all_hashtags + hashtags
 	# --------------------------------------------
