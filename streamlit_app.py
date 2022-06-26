@@ -42,7 +42,7 @@ df = fetch_data(10)
 
 with st.container():
 	
-	col1, col2, col3, col4 = st.columns([1, 0.25, 2, 2])
+	col1, col2, col3, col4, col5 = st.columns([1, 0.25, 2, 0.25, 2])
 	selected_rows = []
 	with col1:
 		# HEADER COL 1 - PART 1
@@ -234,7 +234,7 @@ with col3:
 	st.pyplot(fig6)
 	
 
-with col4:
+with col5:
 	# HEADER COL 4
 	st.header(" ")
 	
@@ -276,7 +276,6 @@ with col4:
 		explode = (0, 0, 0),
 		autopct = '%1.2f%%')
 	ax1.axis('equal') # Try commenting this out.
-	st.write("Pie Chart Twitter Sentiment Example")
 	st.pyplot(fig1)
 
 	
