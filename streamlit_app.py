@@ -139,7 +139,7 @@ for tweet, user in zip(response.data, response.includes['users']):
           for mention in mentions:
             str_mentions = str_mentions + mention['username'] + " | "
         else:
-          str_mentions = mention['username']
+          str_mentions = mentions['username']
       else: str_mentions = ""
     else:
       str_hashtags = ""
