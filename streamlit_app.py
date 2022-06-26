@@ -41,12 +41,20 @@ df = fetch_data(10)
 
 with st.container():
 	
-	
 	col1, col2 = st.columns([1, 4])
 	selected_rows = []
 	with col1:
-		# HEADER COL 1
-		st.subheader("LISTADO DE TT")
+		# HEADER COL 1 - PART 1
+		st.subheader("Selecciona una ubicación")
+		# TODO: Lista de ubicaciones para añadirselo al select. Cargado desde un JSON
+		data = [{'location': 'London', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
+		json_string = json.dumps(data)
+		# Select box con elemento del json de localizaciones
+		# TODO: Mirar como poner elemento of select box
+		st.selectbox("Listado", list(data), index=1)
+		
+		# HEADER COL 1 - PART 2
+		st.subheader("Selecciona una tendencia")
 
 		#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
 		options_builder = GridOptionsBuilder.from_dataframe(df)
@@ -60,21 +68,13 @@ with st.container():
 
 		selected_rows = grid_return["selected_rows"]
 		
-		
-	with col2:
-		
-		# TODO: Lista de ubicaciones para añadirselo al select. Cargado desde un JSON
-		data = [{'location': 'London', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
-		json_string = json.dumps(data)
-		# Select box con elemento del json de localizaciones
-		# TODO: Mirar como poner elemento of select box
-		st.selectbox("Listado", list(data), index=1)
-		
 		# FORMULARIO HASHTAG
 		if len(selected_rows) == 0:
 			hashtag = st.text_input('Introduce un hashtag', "#love")
 		else:
 			hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
+				
+
 # Model importing
 # Load the model (only executed once!)
 # NOTE: Don't set ttl or max_entries in this case
