@@ -234,15 +234,10 @@ with col4:
 	x_labels = [min(x),max(x)]
 	fig3, ax3 = plt.subplots()
 	ax3.plot(x, y)
-	#ax3.xticks(ticks=x_ticks, labels=x_labels)
+	fig3.xticks(ticks=x_ticks, labels=x_labels)
 	st.pyplot(fig3)
 	
-	col41, col42= st.columns([1, 1])
-	
-	with col41:
-		st.write("hola")
-	with col42:
-		st.write("hola2")
+
 
 	
 	
