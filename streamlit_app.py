@@ -186,11 +186,11 @@ for tweet in response.data:
 #chart_data = pd.DataFrame([sections], columns = labels)
 #st.bar_chart(chart_data)
 
-with col2:
+
+with col3:
 	# HEADER COL 2
 	st.header("3. Observa los resultados")
 	
-with col3:
 	#METRICA 1 - Tweets recogidos
 	st.subheader("Tweets recogidos")
 	tweets_recogidos = len(tweets_df)
