@@ -51,7 +51,7 @@ with st.container():
 		json_string = json.dumps(data)
 		# Select box con elemento del json de localizaciones
 		# TODO: Mirar como poner elemento of select box
-		st.selectbox("Listado", list(data), index=1)
+		st.selectbox(list(data), index=1)
 		
 		# HEADER COL 1 - PART 2
 		st.subheader("2. Selecciona una tendencia")
