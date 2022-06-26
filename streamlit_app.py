@@ -17,8 +17,12 @@ st.set_page_config(layout="wide")
 st.title('Encuentra Treding Topics según ubicación')
 st.markdown(
         "**Busca la ubicación** sobre la que desees conocer qué temas son tendencia. "
-	"**Selecciona el tema** que más te interese "
-	"**Observa las métricas** calculadas sobre los tweets que se han recogido. "
+    )
+st.markdown(
+        "**Busca la ubicación** sobre la que desees conocer qué temas son tendencia. "
+    )
+st.markdown(
+        "**Busca la ubicación** sobre la que desees conocer qué temas son tendencia. "
     )
 st.markdown(
         "Esto es una **demo desarrollada con fines académicos** que en ningún caso debe usarse con fines comerciales "
