@@ -216,7 +216,7 @@ with col3:
 	      hashtags.pop()
 	      all_hashtags = all_hashtags + hashtags
 	    else:
-	      if hashtags[0] != "":
+		if hashtags[0] != "":
 			all_hashtags = all_hashtags + hashtags
 	fig6 = plt.figure()
 	ax6 = fig6.add_axes([0,0,1,1])
