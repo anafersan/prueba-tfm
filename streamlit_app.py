@@ -10,7 +10,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 import yweather
 import json
 from datetime import datetime
-import woeid
+import * as data_woeid from woeid
 
 
 
