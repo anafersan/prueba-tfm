@@ -32,6 +32,7 @@ resp = requests.get(url)
 data_woeid = json.loads(resp.text)
 
 df_woeid = pd.read_json('woeid.json')
+df_woeid = df[['name','woeid']].drop_duplicates()
 
 
 # PAGE CONFIG 
@@ -73,7 +74,7 @@ with st.container():
 		json_string = json.dumps(data)
 		# Select box con elemento del json de localizaciones
 		# TODO: Mirar como poner elemento of select box
-		st.selectbox("Ubicaciones disponibles:", list(data), index=1)
+		st.selectbox("Ubicaciones disponibles:", list(df_woeid['name'].drop_duplicates()), index=1)
 		
 		# HEADER COL 1 - PART 2
 		st.header("2. Selecciona una tendencia")
