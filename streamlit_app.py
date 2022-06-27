@@ -76,7 +76,8 @@ with st.container():
 		# TODO: Mirar como poner elemento of select box
 		lista_lugares = list(df_woeid['name'].drop_duplicates())
 		lista_lugares.sort()
-		st.selectbox("Ubicaciones disponibles:", lista_lugares, index=1)
+		wordwide_position = lista_lugares.find("Worldwide")
+		st.selectbox("Ubicaciones disponibles:", lista_lugares, index=wordwide_position)
 		
 		# HEADER COL 1 - PART 2
 		st.header("2. Selecciona una tendencia")
