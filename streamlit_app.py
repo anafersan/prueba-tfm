@@ -107,8 +107,6 @@ for value in trends:
         }
         hashtags_info_ls.append(hashtag_info)
 hashtags_df = pd.DataFrame(hashtags_info_ls)
-st.write(hashtags_df)
-
 
 # Se listan los hashtags
 with col1:
@@ -116,9 +114,10 @@ with col1:
 	st.header("2. Selecciona una tendencia")
 
 	#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
+	opciones_tendencias = hashtags_df['hs_name']
 	options_builder = GridOptionsBuilder.from_dataframe(df)
 	options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
-	options_builder.configure_column("hashtag", type=["stringColumn","stringColumnFilter"])
+	options_builder.configure_column("Selecciona una tendencia", type=["stringColumn","stringColumnFilter"])
 	options_builder.configure_selection("single", use_checkbox=True)
 	options_builder.configure_pagination(paginationAutoPageSize=True)
 	options_builder.configure_grid_options(domLayout='normal')
