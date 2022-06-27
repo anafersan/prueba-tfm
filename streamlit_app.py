@@ -53,6 +53,16 @@ df_woeid = get_weoid()
 # Variable que indica cambio
 CHANGE = 0
 
+
+@st.cache(allow_output_mutation=True)
+def set_save_localization(ubicacion):
+	saved_localizacion = ubicacion
+	return saved_localizacion
+
+saved_localizacion = set_save_localization("")
+
+
+
 with st.container():
 	
 	col1, col2, col3, col4, col5 = st.columns([1, 0.25, 2, 0.25, 1.75])
@@ -71,8 +81,9 @@ with st.container():
 		option_localizacion = st.selectbox("Ubicaciones disponibles:", lista_lugares, index=wordwide_position)
 		if option_localizacion != saved_localizacion:
 			CHANGE = 1
-			@st.cache(allow_output_mutation=True)
-			saved_localizacion = option_localizacion
+			saved_localizacion = set_save_localization(option_localizacion)
+			
+			
 		
 if CHANGE == 1:
 	#Se vuelve a poner la variable a 0
