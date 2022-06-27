@@ -109,13 +109,13 @@ if CHANGE == 1:
 	trends = api.get_place_trends(id = woeid_search)
 	hashtags_info_ls = []
 	for value in trends:
-	    for trend in value['trends']:
-		hashtag_info = {
-		'hs_name': trend['name'],
-		'hs_promoted_content': trend['promoted_content'],
-		'hs_query': trend['query'],
-		'hs_tweet_volume': trend['tweet_volume']}
-		hashtags_info_ls.append(hashtag_info)
+		for trend in value['trends']:
+			hashtag_info = {
+				'hs_name': trend['name'],
+				'hs_promoted_content': trend['promoted_content'],
+				'hs_query': trend['query'],
+				'hs_tweet_volume': trend['tweet_volume']}
+			hashtags_info_ls.append(hashtag_info)
 	hashtags_df = pd.DataFrame(hashtags_info_ls)
 
 
