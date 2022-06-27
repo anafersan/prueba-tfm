@@ -12,26 +12,11 @@ import json
 from datetime import datetime
 import requests
 
-# Importar json con los woeid
-#url = 'https://github.com/anafersan/prueba-tfm/blob/main/woeid.json'
+
+
+#url = 'https://raw.githubusercontent.com/anafersan/prueba-tfm/main/woeid.json'
 #resp = requests.get(url)
-#data = json.loads(resp.text)
-#print(data)
-
-#@st.cache
-#def load_woeid():
-#	url = 'https://github.com/anafersan/prueba-tfm/blob/main/woeid.json'
-#	resp = requests.get(url)
-#	data = json.loads(resp.text)
-#	return data
-  
-#data_woeid = load_woeid()
-
-url = 'https://raw.githubusercontent.com/anafersan/prueba-tfm/main/woeid.json'
-resp = requests.get(url)
-data_woeid = json.loads(resp.text)
-
-
+#data_woeid = json.loads(resp.text)
 
 
 @st.cache(allow_output_mutation=True)
@@ -40,11 +25,7 @@ def get_weoid():
 	df_woeid = df_woeid[['name','woeid']].drop_duplicates()
 	return df_woeid
 
-df_woeid = get_weoid
-
-
-
-
+df_woeid = get_weoid()
 
 
 # PAGE CONFIG 
