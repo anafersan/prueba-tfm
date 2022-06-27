@@ -128,6 +128,7 @@ if CHANGE == 1:
 		opciones_tendencias = hashtags_df['hs_name']
 		df_tendencias = hashtags_df[['hs_name']]
 		#tendencia_select = st.checkbox(opciones_tendencias, True)
+		print("HOLI SOY EL BOTON DE MIERDA"
 		tendencia_select = st.radio("Seleccciona una opción", opciones_tendencias)
 
 		#options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
