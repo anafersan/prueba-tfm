@@ -127,7 +127,7 @@ if CHANGE == 1:
 		#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
 		opciones_tendencias = hashtags_df['hs_name']
 		df_tendencias = hashtags_df[['hs_name']]
-		tendencia_select = st.checkbox(opciones_tendencias)
+		tendencia_select = st.checkbox(opciones_tendencias, True)
 		#tendencia_select = st.checkbox("Seleccciona una opción", opciones_tendencias)
 
 		#options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
