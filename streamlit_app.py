@@ -65,7 +65,7 @@ with st.container():
 	selected_rows = []
 	with col1:
 		# HEADER COL 1 - PART 1
-		st.subheader("1. Selecciona una ubicación")
+		st.header("1. Selecciona una ubicación")
 		# TODO: Lista de ubicaciones para añadirselo al select. Cargado desde un JSON
 		data = [{'location': 'London', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
 		json_string = json.dumps(data)
@@ -74,7 +74,7 @@ with st.container():
 		st.selectbox("Ubicaciones disponibles:", list(data), index=1)
 		
 		# HEADER COL 1 - PART 2
-		st.subheader("2. Selecciona una tendencia")
+		st.header("2. Selecciona una tendencia")
 
 		#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
 		options_builder = GridOptionsBuilder.from_dataframe(df)
