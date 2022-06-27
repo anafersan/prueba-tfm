@@ -70,7 +70,7 @@ with st.container():
 		# HEADER COL 1 - PART 1
 		st.header("1. Selecciona una ubicación")
 		# TODO: Lista de ubicaciones para añadirselo al select. Cargado desde un JSON
-		data = [{'location': 'London', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
+		#data = [{'location': 'London', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
 		json_string = json.dumps(data)
 		# Select box con elemento del json de localizaciones
 		# TODO: Mirar como poner elemento of select box
@@ -115,7 +115,8 @@ with col1:
 
 	#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
 	opciones_tendencias = hashtags_df['hs_name']
-	options_builder = GridOptionsBuilder.from_dataframe(df)
+	df_tendencias = hashtags_df[['hs_name']]
+	options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
 	options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
 	options_builder.configure_column("Selecciona una tendencia", type=["stringColumn","stringColumnFilter"])
 	options_builder.configure_selection("single", use_checkbox=True)
