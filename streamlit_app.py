@@ -27,7 +27,7 @@ import requests
   
 #data_woeid = load_woeid()
 
-url = 'https://github.com/anafersan/prueba-tfm/blob/main/woeid.json'
+url = 'https://raw.githubusercontent.com/anafersan/prueba-tfm/main/woeid.json'
 resp = requests.get(url)
 data_woeid = json.loads(resp.text)
 
