@@ -12,6 +12,20 @@ import json
 from datetime import datetime
 import * as data_woeid from woeid
 
+# Importar json con los woeid
+#url = 'https://github.com/anafersan/prueba-tfm/blob/main/woeid.json'
+#resp = requests.get(url)
+#data = json.loads(resp.text)
+#print(data)
+
+@st.cache
+def load_woeid():
+	url = 'https://github.com/anafersan/prueba-tfm/blob/main/woeid.json'
+	resp = requests.get(url)
+	data = json.loads(resp.text)
+	return data
+  
+data_woeid = load_woeid()
 
 
 # PAGE CONFIG 
