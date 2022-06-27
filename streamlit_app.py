@@ -110,7 +110,7 @@ with col1:
 	#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
 	opciones_tendencias = hashtags_df['hs_name']
 	df_tendencias = hashtags_df[['hs_name']]
-	tendencia_select = st.radio("Seleccciona una opción", opciones_tendencias, 0)
+	tendencia_select = st.radio("Seleccciona una opción", opciones_tendencias)
 	
 	#options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
 	#options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
