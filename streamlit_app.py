@@ -128,18 +128,18 @@ if CHANGE == 1:
 		opciones_tendencias = hashtags_df['hs_name']
 		df_tendencias = hashtags_df[['hs_name']]
 		#tendencia_select = st.checkbox(opciones_tendencias, True)
-		print("HOLI SOY EL BOTON DE MIERDA")
-		tendencia_select = st.radio("Seleccciona una opción", opciones_tendencias)
+		#print("HOLI SOY EL BOTON DE MIERDA")
+		#tendencia_select = st.radio("Seleccciona una opción", opciones_tendencias)
 
-		#options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
-		#options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
-		#options_builder.configure_column("hs_name", type=["stringColumn","stringColumnFilter"])
-		#options_builder.configure_selection("single", use_checkbox=True)
-		#options_builder.configure_pagination(paginationAutoPageSize=True)
-		#options_builder.configure_grid_options(domLayout='normal')
-		#grid_options = options_builder.build()
-		#grid_return = AgGrid(df, grid_options, update_mode="MODEL_CHANGED")
-		#selected_rows = grid_return["selected_rows"]
+		options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
+		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
+		options_builder.configure_column("hs_name", type=["stringColumn","stringColumnFilter"])
+		options_builder.configure_selection("single", use_checkbox=True)
+		options_builder.configure_pagination(paginationAutoPageSize=True)
+		options_builder.configure_grid_options(domLayout='normal')
+		grid_options = options_builder.build()
+		grid_return = AgGrid(df, grid_options, update_mode="MODEL_CHANGED")
+		tendencia_select = grid_return["selected_rows"][0]
 
 		# FORMULARIO HASHTAG
 		#if len(selected_rows) == 0:
