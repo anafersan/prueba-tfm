@@ -13,14 +13,9 @@ from datetime import datetime
 import requests
 
 
-
 #url = 'https://raw.githubusercontent.com/anafersan/prueba-tfm/main/woeid.json'
 #resp = requests.get(url)
 #data_woeid = json.loads(resp.text)
-
-
-
-
 
 # PAGE CONFIG 
 st.set_page_config(layout="wide")
@@ -55,6 +50,9 @@ def get_weoid():
 
 df_woeid = get_weoid()
 
+# Variable que indica cambio
+CHANGE = 0
+
 with st.container():
 	
 	col1, col2, col3, col4, col5 = st.columns([1, 0.25, 2, 0.25, 1.75])
@@ -71,63 +69,72 @@ with st.container():
 		lista_lugares.sort()
 		wordwide_position = lista_lugares.index("Worldwide")
 		option_localizacion = st.selectbox("Ubicaciones disponibles:", lista_lugares, index=wordwide_position)
+		if option_localizacion != saved_localizacion:
+			CHANGE = 1
+			@st.cache(allow_output_mutation=True)
+			saved_localizacion = option_localizacion
 		
-# Twitter API client - v1 - BUSQUEDA DE TENDENCIAS
-consumer_keyV1 = "ehHCNZacFhnw6IX0GNhtcheXy"
-consumer_secretV1 = "iQapgd4BCl8xTt0QjJQgT7nGrMsff84D3IhcsNI6YUe3GFHOxP"
-access_tokenV1 = "383973841-fNdR9vGN1QUfSDGdBrOysoP2rw2AlkBdxbK676Jy"
-access_token_secretV1 = "z36bWDTODtqo6rvI2iG6HO15dvwr2T3L8S95wa2Hb1vv5"
-
-# authorization of consumer key and consumer secret
-authV1 = tweepy.OAuthHandler(consumer_keyV1, consumer_secretV1)
-# set access to user's access key and access secret
-authV1.set_access_token(access_tokenV1, access_token_secretV1)
-# calling the api
-api = tweepy.API(authV1)
-# WOEID
-filtrado = df_woeid[df_woeid['name'] == option_localizacion]
-filtrado = filtrado.reset_index()
-woeid_search = filtrado['woeid'][0]
-# fetching the trends
-trends = api.get_place_trends(id = woeid_search)
-hashtags_info_ls = []
-for value in trends:
-    for trend in value['trends']:
-        hashtag_info = {
-        'hs_name': trend['name'],
-        'hs_promoted_content': trend['promoted_content'],
-        'hs_query': trend['query'],
-        'hs_tweet_volume': trend['tweet_volume']
-        }
-        hashtags_info_ls.append(hashtag_info)
-hashtags_df = pd.DataFrame(hashtags_info_ls)
-
-# Se listan los hashtags
-with col1:
-	# HEADER COL 1 - PART 2
-	st.header("2. Selecciona una tendencia")
-
-	#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
-	opciones_tendencias = hashtags_df['hs_name']
-	df_tendencias = hashtags_df[['hs_name']]
-	tendencia_select = st.radio("Seleccciona una opción", opciones_tendencias)
+if CHANGE == 1:
+	#Se vuelve a poner la variable a 0
+	CHANGE = 0
 	
-	#options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
-	#options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
-	#options_builder.configure_column("hs_name", type=["stringColumn","stringColumnFilter"])
-	#options_builder.configure_selection("single", use_checkbox=True)
-	#options_builder.configure_pagination(paginationAutoPageSize=True)
-	#options_builder.configure_grid_options(domLayout='normal')
-	#grid_options = options_builder.build()
-	#grid_return = AgGrid(df, grid_options, update_mode="MODEL_CHANGED")
-	#selected_rows = grid_return["selected_rows"]
+	# Twitter API client - v1 - BUSQUEDA DE TENDENCIAS
+	consumer_keyV1 = "ehHCNZacFhnw6IX0GNhtcheXy"
+	consumer_secretV1 = "iQapgd4BCl8xTt0QjJQgT7nGrMsff84D3IhcsNI6YUe3GFHOxP"
+	access_tokenV1 = "383973841-fNdR9vGN1QUfSDGdBrOysoP2rw2AlkBdxbK676Jy"
+	access_token_secretV1 = "z36bWDTODtqo6rvI2iG6HO15dvwr2T3L8S95wa2Hb1vv5"
 
-	# FORMULARIO HASHTAG
-	#if len(selected_rows) == 0:
-	#	hashtag = st.text_input('Introduce un hashtag', "#love")
-	#else:
-	#hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
-	#hashtag = selected_rows[0]["hashtag"]
+	# authorization of consumer key and consumer secret
+	authV1 = tweepy.OAuthHandler(consumer_keyV1, consumer_secretV1)
+	# set access to user's access key and access secret
+	authV1.set_access_token(access_tokenV1, access_token_secretV1)
+	# calling the api
+	api = tweepy.API(authV1)
+	# WOEID
+	filtrado = df_woeid[df_woeid['name'] == option_localizacion]
+	filtrado = filtrado.reset_index()
+	woeid_search = filtrado['woeid'][0]
+	# fetching the trends
+	trends = api.get_place_trends(id = woeid_search)
+	hashtags_info_ls = []
+	for value in trends:
+	    for trend in value['trends']:
+		hashtag_info = {
+		'hs_name': trend['name'],
+		'hs_promoted_content': trend['promoted_content'],
+		'hs_query': trend['query'],
+		'hs_tweet_volume': trend['tweet_volume']
+		}
+		hashtags_info_ls.append(hashtag_info)
+	hashtags_df = pd.DataFrame(hashtags_info_ls)
+
+
+	# Se listan los hashtags
+	with col1:
+		# HEADER COL 1 - PART 2
+		st.header("2. Selecciona una tendencia")
+
+		#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
+		opciones_tendencias = hashtags_df['hs_name']
+		df_tendencias = hashtags_df[['hs_name']]
+		tendencia_select = st.radio("Seleccciona una opción", opciones_tendencias, 0)
+
+		#options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
+		#options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
+		#options_builder.configure_column("hs_name", type=["stringColumn","stringColumnFilter"])
+		#options_builder.configure_selection("single", use_checkbox=True)
+		#options_builder.configure_pagination(paginationAutoPageSize=True)
+		#options_builder.configure_grid_options(domLayout='normal')
+		#grid_options = options_builder.build()
+		#grid_return = AgGrid(df, grid_options, update_mode="MODEL_CHANGED")
+		#selected_rows = grid_return["selected_rows"]
+
+		# FORMULARIO HASHTAG
+		#if len(selected_rows) == 0:
+		#	hashtag = st.text_input('Introduce un hashtag', "#love")
+		#else:
+		#hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
+		#hashtag = selected_rows[0]["hashtag"]
 				
 
 # Model importing
