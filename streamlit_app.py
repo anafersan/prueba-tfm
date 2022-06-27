@@ -85,10 +85,8 @@ authV1.set_access_token(access_tokenV1, access_token_secretV1)
 # calling the api
 api = tweepy.API(authV1)
 # WOEID
-st.write(option_localizacion)
 filtrado = df_woeid[df_woeid['name'] == option_localizacion]
 filtrado = filtrado.reset_index()
-st.write(filtrado)
 woeid_search = filtrado['woeid'][0]
 # fetching the trends
 trends = api.get_place_trends(id = woeid_search)
