@@ -114,11 +114,11 @@ with col1:
 	st.header("2. Selecciona una tendencia")
 
 	#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
-	opciones_tendencias = hashtags_df['hs_name']
+	#opciones_tendencias = hashtags_df['hs_name']
 	df_tendencias = hashtags_df[['hs_name']]
 	options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
 	options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
-	options_builder.configure_column("Selecciona una tendencia", type=["stringColumn","stringColumnFilter"])
+	options_builder.configure_column("hs_name", type=["stringColumn","stringColumnFilter"])
 	options_builder.configure_selection("single", use_checkbox=True)
 	options_builder.configure_pagination(paginationAutoPageSize=True)
 	options_builder.configure_grid_options(domLayout='normal')
