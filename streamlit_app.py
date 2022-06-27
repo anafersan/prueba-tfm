@@ -31,9 +31,20 @@ url = 'https://raw.githubusercontent.com/anafersan/prueba-tfm/main/woeid.json'
 resp = requests.get(url)
 data_woeid = json.loads(resp.text)
 
-@st.cache
-df_woeid = pd.read_json('woeid.json')
-df_woeid = df_woeid[['name','woeid']].drop_duplicates()
+
+
+
+@st.cache(allow_output_mutation=True)
+def get_weoid():
+	df_woeid = pd.read_json('woeid.json')
+	df_woeid = df_woeid[['name','woeid']].drop_duplicates()
+	return df_woeid
+
+df_woeid = get_weoid
+
+
+
+
 
 
 # PAGE CONFIG 
