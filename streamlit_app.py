@@ -79,28 +79,58 @@ with st.container():
 		wordwide_position = lista_lugares.index("Worldwide")
 		option_localizacion = st.selectbox("Ubicaciones disponibles:", lista_lugares, index=wordwide_position)
 		
-		
-		# HEADER COL 1 - PART 2
-		st.header("2. Selecciona una tendencia")
+# Twitter API client - v1 - BUSQUEDA DE TENDENCIAS
+consumer_keyV1 = "ehHCNZacFhnw6IX0GNhtcheXy"
+consumer_secretV1 = "iQapgd4BCl8xTt0QjJQgT7nGrMsff84D3IhcsNI6YUe3GFHOxP"
+access_tokenV1 = "383973841-fNdR9vGN1QUfSDGdBrOysoP2rw2AlkBdxbK676Jy"
+access_token_secretV1 = "z36bWDTODtqo6rvI2iG6HO15dvwr2T3L8S95wa2Hb1vv5"
 
-		#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
-		options_builder = GridOptionsBuilder.from_dataframe(df)
-		options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
-		options_builder.configure_column("hashtag", type=["stringColumn","stringColumnFilter"])
-		options_builder.configure_selection("single", use_checkbox=True)
-		options_builder.configure_pagination(paginationAutoPageSize=True)
-		options_builder.configure_grid_options(domLayout='normal')
-		grid_options = options_builder.build()
-		grid_return = AgGrid(df, grid_options, update_mode="MODEL_CHANGED")
+# authorization of consumer key and consumer secret
+authV1 = tweepy.OAuthHandler(consumer_keyV1, consumer_secretV1)
+# set access to user's access key and access secret
+authV1.set_access_token(access_tokenV1, access_token_secretV1)
+# calling the api
+api = tweepy.API(authV1)
+# WOEID
+#woeid_search = 2972
+filtrado = df_woeid[df_woeid['name'] == option_localizacion]
+woeid_search = filtrado['woeid'][0]
+# fetching the trends
+trends = api.get_place_trends(id = woeid)
+for value in trends:
+    for trend in value['trends']:
+        hashtag_info = {
+        'hs_name': trend['name'],
+        'hs_promoted_content': trend['promoted_content'],
+        'hs_query': trend['query'],
+        'hs_tweet_volume': trend['tweet_volume']
+        }
+        hashtags_info_ls.append(hashtag_info)
+hashtags_df = pd.DataFrame(hashtags_info_ls)
 
-		selected_rows = grid_return["selected_rows"]
-		
-		# FORMULARIO HASHTAG
-		#if len(selected_rows) == 0:
-		#	hashtag = st.text_input('Introduce un hashtag', "#love")
-		#else:
-		#hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
-		hashtag = selected_rows[0]["hashtag"]
+
+# Se listan los hashtags
+with col1:
+	# HEADER COL 1 - PART 2
+	st.header("2. Selecciona una tendencia")
+
+	#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
+	options_builder = GridOptionsBuilder.from_dataframe(df)
+	options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
+	options_builder.configure_column("hashtag", type=["stringColumn","stringColumnFilter"])
+	options_builder.configure_selection("single", use_checkbox=True)
+	options_builder.configure_pagination(paginationAutoPageSize=True)
+	options_builder.configure_grid_options(domLayout='normal')
+	grid_options = options_builder.build()
+	grid_return = AgGrid(df, grid_options, update_mode="MODEL_CHANGED")
+	selected_rows = grid_return["selected_rows"]
+
+	# FORMULARIO HASHTAG
+	#if len(selected_rows) == 0:
+	#	hashtag = st.text_input('Introduce un hashtag', "#love")
+	#else:
+	#hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
+	hashtag = selected_rows[0]["hashtag"]
 				
 
 # Model importing
@@ -119,7 +149,9 @@ model = load_model()
 tokenizer = AutoTokenizer.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
 #model = AutoModelForSequenceClassification.from_pretrained("cardiffnlp/twitter-roberta-base-sentiment-latest")
 sentiment_task = pipeline("sentiment-analysis", model=model, tokenizer=tokenizer)
-# Twitter API client
+
+
+# Twitter API client - v2 - BUSQUEDA DE TWEETS
 bearer_token = "AAAAAAAAAAAAAAAAAAAAAGcdZgEAAAAADAbPiGFS3jT3w7bTECCewFv0oR8%3D4ZAl4MWV5Z8RmSrM99HaA5xhij9UkDxlYugx4tv8YO9Z8PcU0v"
 consumer_key = "3UkoMlYsWmPeUDYyTpDHb0V62"
 consumer_secret = "n9hqzC2j8KPuqQKwa6hJkM3eBPvN1fwE2Gahr1riygX1LkahUq"
