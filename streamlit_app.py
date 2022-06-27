@@ -316,7 +316,7 @@ with col5:
 	#METRICA 3 - Tweets en el tiempo 
 	st.subheader("Número de tweets según hora de publicación")
 	st.write("Se indica el número de tweets según la fecha en la que fueron publicados en Twitter")
-	tweets_df['hora_minuto'] = tweets_df['created_at'].dt.strftime("%d/%m/%y %H:%M")
+	tweets_df['hora_minuto'] = tweets_df['created_at'].dt.strftime("%d/%m/%y %H:%M:%S")
 	x = tweets_df['hora_minuto'].drop_duplicates()
 	y = tweets_df['hora_minuto'].value_counts()
 	dif_minmax = datetime.strptime(max(x), '%d/%m/%y %H:%M:%S') - datetime.strptime(min(x), '%d/%m/%y %H:%M:%S')
