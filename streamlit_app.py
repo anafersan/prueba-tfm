@@ -87,7 +87,7 @@ api = tweepy.API(authV1)
 # WOEID
 st.write(option_localizacion)
 filtrado = df_woeid[df_woeid['name'] == option_localizacion]
-filtrado.reset_index()
+filtrado = filtrado.reset_index()
 st.write(filtrado)
 woeid_search = filtrado['woeid'][0]
 # fetching the trends
