@@ -114,24 +114,26 @@ with col1:
 	st.header("2. Selecciona una tendencia")
 
 	#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
-	#opciones_tendencias = hashtags_df['hs_name']
+	opciones_tendencias = hashtags_df['hs_name']
 	df_tendencias = hashtags_df[['hs_name']]
-	options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
-	options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
-	options_builder.configure_column("hs_name", type=["stringColumn","stringColumnFilter"])
-	options_builder.configure_selection("single", use_checkbox=True)
-	options_builder.configure_pagination(paginationAutoPageSize=True)
-	options_builder.configure_grid_options(domLayout='normal')
-	grid_options = options_builder.build()
-	grid_return = AgGrid(df, grid_options, update_mode="MODEL_CHANGED")
-	selected_rows = grid_return["selected_rows"]
+	tendencia_select = st.radio("Seleccciona una opción", opciones_tendencias, 1)
+	
+	#options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
+	#options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
+	#options_builder.configure_column("hs_name", type=["stringColumn","stringColumnFilter"])
+	#options_builder.configure_selection("single", use_checkbox=True)
+	#options_builder.configure_pagination(paginationAutoPageSize=True)
+	#options_builder.configure_grid_options(domLayout='normal')
+	#grid_options = options_builder.build()
+	#grid_return = AgGrid(df, grid_options, update_mode="MODEL_CHANGED")
+	#selected_rows = grid_return["selected_rows"]
 
 	# FORMULARIO HASHTAG
 	#if len(selected_rows) == 0:
 	#	hashtag = st.text_input('Introduce un hashtag', "#love")
 	#else:
 	#hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
-	hashtag = selected_rows[0]["hashtag"]
+	#hashtag = selected_rows[0]["hashtag"]
 				
 
 # Model importing
@@ -164,7 +166,7 @@ client = tweepy.Client(bearer_token,
                        access_token, 
                        access_token_secret)
 #Tweets extraction
-query =  hashtag + " -is:retweet" 
+query =  tendencia_select + " -is:retweet" 
 response = client.search_recent_tweets(query=query,
                                      tweet_fields = ["created_at", "text", "lang", "source", "public_metrics", "entities"],
                                      user_fields = ["name", "username", "location", "verified", "description", "public_metrics"],
