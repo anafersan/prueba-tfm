@@ -74,7 +74,9 @@ with st.container():
 		json_string = json.dumps(data)
 		# Select box con elemento del json de localizaciones
 		# TODO: Mirar como poner elemento of select box
-		st.selectbox("Ubicaciones disponibles:", list(df_woeid['name'].drop_duplicates()), index=1)
+		lista_lugares = list(df_woeid['name'].drop_duplicates())
+		lista_lugares.sort()
+		st.selectbox("Ubicaciones disponibles:", lista_lugares, index=1)
 		
 		# HEADER COL 1 - PART 2
 		st.header("2. Selecciona una tendencia")
