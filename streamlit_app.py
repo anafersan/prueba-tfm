@@ -17,14 +17,18 @@ from datetime import datetime
 #data = json.loads(resp.text)
 #print(data)
 
-@st.cache
-def load_woeid():
-	url = 'https://github.com/anafersan/prueba-tfm/blob/main/woeid.json'
-	resp = requests.get(url)
-	data = json.loads(resp.text)
-	return data
+#@st.cache
+#def load_woeid():
+#	url = 'https://github.com/anafersan/prueba-tfm/blob/main/woeid.json'
+#	resp = requests.get(url)
+#	data = json.loads(resp.text)
+#	return data
   
-data_woeid = load_woeid()
+#data_woeid = load_woeid()
+
+url = 'https://github.com/anafersan/prueba-tfm/blob/main/woeid.json'
+resp = requests.get(url)
+data_woeid = json.loads(resp.text)
 
 
 # PAGE CONFIG 
