@@ -19,13 +19,7 @@ import requests
 #data_woeid = json.loads(resp.text)
 
 
-@st.cache(allow_output_mutation=True)
-def get_weoid():
-	df_woeid = pd.read_json('woeid.json')
-	df_woeid = df_woeid[['name','woeid']].drop_duplicates()
-	return df_woeid
 
-df_woeid = get_weoid()
 
 
 # PAGE CONFIG 
@@ -53,7 +47,13 @@ def fetch_data(samples):
 
 df = fetch_data(10)
 
+@st.cache(allow_output_mutation=True)
+def get_weoid():
+	df_woeid = pd.read_json('woeid.json')
+	df_woeid = df_woeid[['name','woeid']].drop_duplicates()
+	return df_woeid
 
+df_woeid = get_weoid()
 
 with st.container():
 	
