@@ -95,8 +95,11 @@ api = tweepy.API(authV1)
 #woeid_search = 2972
 filtrado = df_woeid[df_woeid['name'] == option_localizacion]
 woeid_search = filtrado['woeid'][0]
+st.write(woeid_search)
+
 # fetching the trends
 trends = api.get_place_trends(id = woeid_search)
+st.write(trends)
 for value in trends:
     for trend in value['trends']:
         hashtag_info = {
