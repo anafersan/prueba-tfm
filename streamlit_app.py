@@ -32,7 +32,7 @@ resp = requests.get(url)
 data_woeid = json.loads(resp.text)
 
 df_woeid = pd.read_json('woeid.json')
-df_woeid = df[['name','woeid']].drop_duplicates()
+df_woeid = df_woeid[['name','woeid']].drop_duplicates()
 
 
 # PAGE CONFIG 
