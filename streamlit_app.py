@@ -10,6 +10,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 import yweather
 import json
 from datetime import datetime
+import requests
 
 # Importar json con los woeid
 #url = 'https://github.com/anafersan/prueba-tfm/blob/main/woeid.json'
