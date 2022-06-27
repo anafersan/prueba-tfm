@@ -31,7 +31,9 @@ url = 'https://raw.githubusercontent.com/anafersan/prueba-tfm/main/woeid.json'
 resp = requests.get(url)
 data_woeid = json.loads(resp.text)
 
+
 df_woeid = pd.read_json('woeid.json')
+@st.cache
 df_woeid = df_woeid[['name','woeid']].drop_duplicates()
 
 
