@@ -31,6 +31,8 @@ url = 'https://raw.githubusercontent.com/anafersan/prueba-tfm/main/woeid.json'
 resp = requests.get(url)
 data_woeid = json.loads(resp.text)
 
+df_woeid = pd.read_json('woeid.json')
+
 
 # PAGE CONFIG 
 st.set_page_config(layout="wide")
