@@ -71,7 +71,7 @@ with st.container():
 		st.header("1. Selecciona una ubicación")
 		# TODO: Lista de ubicaciones para añadirselo al select. Cargado desde un JSON
 		#data = [{'location': 'London', 'code': 'uk'},{'location': 'Madrid', 'code': 'es'},{'location': 'USA', 'code': 'us'},{'location': 'Paris', 'code': 'pa'}]
-		json_string = json.dumps(data)
+		#json_string = json.dumps(data)
 		# Select box con elemento del json de localizaciones
 		# TODO: Mirar como poner elemento of select box
 		lista_lugares = list(df_woeid['name'].drop_duplicates())
