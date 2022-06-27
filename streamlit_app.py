@@ -319,7 +319,7 @@ with col5:
 	tweets_df['hora_minuto'] = tweets_df['created_at'].dt.strftime("%d/%m/%y %H:%M")
 	x = tweets_df['hora_minuto'].drop_duplicates()
 	y = tweets_df['hora_minuto'].value_counts()
-	dif_minmax = datetime.strptime(max(x), '%d/%m/%y %H:%M') - datetime.strptime(min(x), '%d/%m/%y %H:%M')
+	dif_minmax = datetime.strptime(max(x), '%d/%m/%y %H:%M:%S') - datetime.strptime(min(x), '%d/%m/%y %H:%M:%S')
 	rango = int(dif_minmax.total_seconds() / 60)
 	x_ticks = [0,rango]
 	x_labels = [min(x),max(x)]
