@@ -63,6 +63,9 @@ df_woeid = get_weoid()
 if 'saved_localizacion' not in st.session_state:
     st.session_state.saved_localizacion = ""
 
+if 'saved_trending' not in st.session_state:
+    st.session_state.saved_trending = ""
+
 
 with st.container():
 	
@@ -116,6 +119,7 @@ if option_localizacion != st.session_state.saved_localizacion:
 	hashtags_df = pd.DataFrame(hashtags_info_ls)
 
 
+if tendencia_select != st.session_state.saved_trending:
 	# Se listan los hashtags
 	with col1:
 		# HEADER COL 1 - PART 2
@@ -127,6 +131,7 @@ if option_localizacion != st.session_state.saved_localizacion:
 		#tendencia_select = st.checkbox(opciones_tendencias, True)
 		#print("HOLI SOY EL BOTON DE MIERDA")
 		tendencia_select = st.radio("Seleccciona una opción", opciones_tendencias)
+		st.session_state.saved_trending = tendencia_select
 
 		#options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
 		#options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
