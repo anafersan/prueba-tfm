@@ -279,7 +279,7 @@ with col3:
 	
 	#METRICA 2 - Alcance 
 	st.subheader("Alcance")
-	total_alcance = tweets_df['followers'].sum() + tweets_df['retweet_count'].sum()
+	total_alcance = tweets_df['followers'].sum() + tweets_df['retweet_count'].sum()*707
 	st.write("El alcance se calcula como el número de seguidores de las cuentas que han publicado el contenido recogido más el número de RTs de los tweets")
 	st.metric("Usuarios potencialmente alcanzados", total_alcance)
 	
