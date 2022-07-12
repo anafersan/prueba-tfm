@@ -129,8 +129,8 @@ with col1:
 	st.header("2. Selecciona una tendencia")
 
 	#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
-	opciones_tendencias = hashtags_df['hs_name']
-	df_tendencias = hashtags_df[['hs_name']]
+	opciones_tendencias = st.session_state.df_hashtags['hs_name']
+	df_tendencias = st.session_state.df_hashtags[['hs_name']]
 	#tendencia_select = st.checkbox(opciones_tendencias, True)
 	#print("HOLI SOY EL BOTON DE MIERDA")
 	tendencia_select = st.radio("Seleccciona una opción", opciones_tendencias)
