@@ -67,7 +67,7 @@ if 'saved_trending' not in st.session_state:
     st.session_state.saved_trending = ""
 
 if 'df_hashtags' not in st.session_state:
-	st.session_state.df_hashtags = pd.Dataframe()
+	st.session_state.df_hashtags = pd.DataFrame()
 
 
 with st.container():
