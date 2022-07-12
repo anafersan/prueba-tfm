@@ -82,9 +82,9 @@ with st.container():
 		option_localizacion = st.selectbox("Ubicaciones disponibles:", lista_lugares, index=wordwide_position)
 
 							
-if option_localizacion != saved_localizacion:
+if option_localizacion != st.session_state.saved_localizacion:
 
-	saved_localizacion = option_localizacion
+	st.session_state.saved_localizacion = option_localizacion
 	
 	# Twitter API client - v1 - BUSQUEDA DE TENDENCIAS
 	consumer_keyV1 = "ehHCNZacFhnw6IX0GNhtcheXy"
