@@ -59,11 +59,9 @@ df_woeid = get_weoid()
 #	saved_localizacion = ubicacion
 #	return saved_localizacion
 
-@st.cache(allow_output_mutation=True)
-saved_localizacion = ""
 
-@st.cache(allow_output_mutation=True)
-saved_trending = ""
+if 'saved_localizacion' not in st.session_state:
+    st.session_state.saved_localizacion = ""
 
 
 with st.container():
