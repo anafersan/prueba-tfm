@@ -3,4 +3,3 @@ transformers
 tweepy==4.0
 torch
 simplejson
-seaborn
