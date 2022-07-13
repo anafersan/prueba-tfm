@@ -8,9 +8,13 @@ from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
 #from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
 #import yweather
-import json
+#import json
 from datetime import datetime
 import requests
+import seaborn as sns
+
+sns.set(font_scale=1.3)
+plt.rc('font', size=14)
 
 
 #url = 'https://raw.githubusercontent.com/anafersan/prueba-tfm/main/woeid.json'
@@ -19,7 +23,7 @@ import requests
 
 # PAGE CONFIG 
 st.set_page_config(layout="wide")
-st.title('Encuentra Treding Topics de Twitter según ubicación')
+st.title('Analiza Treding Topics de Twitter según ubicación')
 st.markdown(
         "**Busca la ubicación** sobre la que desees conocer qué temas son tendencia. "
     )
@@ -270,22 +274,26 @@ for tweet in response.data:
 with col3:
 	# HEADER COL 3
 	st.header("3. Observa los resultados")
-	
+	st.subheader("")
+	st.subheader("")
+
 	#METRICA 1 - Tweets recogidos
-	st.subheader("Tweets recogidos")
+	st.subheader("3.1 Nº Tweets recogidos")
 	tweets_recogidos = len(tweets_df)
 	st.metric("Número de tweets recolectados", tweets_recogidos)
-	
+	st.write("")
+
 	
 	#METRICA 2 - Alcance 
-	st.subheader("Alcance")
+	st.subheader("3.2. Alcance")
 	total_alcance = tweets_df['followers'].sum() + tweets_df['retweet_count'].sum()*707
-	st.write("El alcance se calcula como el número de seguidores de las cuentas que han publicado el contenido recogido más el número de RTs de los tweets")
 	st.metric("Usuarios potencialmente alcanzados", total_alcance)
-	
+	st.info("El alcance se calcula como el número de seguidores de las cuentas que han publicado el contenido recogido más el número de RTs de los tweets")
+	st.write("")
+	st.write("")
+
 	#METRICA 6 - Otros hashtags 
-	st.subheader("Temas relacionados")
-	st.write("Se indican los 20 hashtags más añadidos por los usuarios a los tweets del tema seleccionado")
+	st.subheader("3.3 Temas relacionados con los tweets")
 	all_hashtags = []
 	#Se recorre la lista de tweets
 	# --------------------------------------------
@@ -300,7 +308,8 @@ with col3:
 				if hashtags[0] != "":
 					all_hashtags = all_hashtags + hashtags
 	# --------------------------------------------
-	fig6 = plt.figure()
+	palette = sns.color_palette("crest", 20)
+	fig6 = plt.figure(figsize=(8,10))
 	ax6 = fig6.add_axes([0,0,1,1])
 	hashtags_df = pd.DataFrame(all_hashtags, columns =['hs'])
 	labels6 = hashtags_df['hs'].drop_duplicates()
@@ -309,31 +318,37 @@ with col3:
 	values6 = hashtags_df.value_counts()
 	values6 = values6[:20]
 	values6 = values6.sort_values(ascending=True)
-	ax6.barh(labels6,values6)
+	ax6.barh(labels6,values6,color=palette)
 	st.pyplot(fig6)
+	st.info("Se indican los 20 hashtags más utilizados por los usuarios en los tweets del tema seleccionado")
+	st.subheader("")
 	
 	#METRICA 5 - Sentimiento
-	st.subheader("Distribución del sentimiento")
-	st.write("Distribución del sentimiento detectado en los tweets")
+	st.subheader("3.6 Distribución del sentimiento")
 	labels = 'Positive', 'Neutral', 'Negative'
 	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
 	colors = ['g', 'y', 'r']
 	fig1, ax1 = plt.subplots()
 	ax1.pie(sections, labels=labels, colors=colors,
 		startangle=90,
-		explode = (0, 0, 0),
-		autopct = '%1.2f%%')
+		explode =(0.00, 0.01, 0.05),
+		autopct = '%1.2f%%', labeldistance=1.15,
+		pctdistance=0.5,
+		wedgeprops = { 'linewidth' : 3, 'edgecolor' : 'white' })
 	ax1.axis('equal') # Try commenting this out.
 	st.pyplot(fig1)
-	
+	st.info("Se representa la distribución del sentimiento detectado en los tweets a través del cálculo de la polaridad. Se ha utilizado el modelo preentrenado Cardiffnlp/twitter-roberta-base-sentiment alojado en HuggingFace")
+
 
 with col5:
 	# HEADER COL 4
 	st.header(" ")
 	
 	#METRICA 3 - Tweets en el tiempo 
-	st.subheader("Número de tweets según hora de publicación")
-	st.write("Se indica el número de tweets según la fecha en la que fueron publicados en Twitter")
+	st.header("")
+	st.subheader("")
+	st.subheader("")
+	st.subheader("3.4 Distribución horaria de los tweets")
 	tweets_df['hora_minuto'] = tweets_df['created_at'].dt.strftime("%d/%m/%y %H:%M")
 	x = tweets_df['hora_minuto'].drop_duplicates()
 	y = tweets_df['hora_minuto'].value_counts()
@@ -345,24 +360,19 @@ with col5:
 	plt.plot(x, y)
 	plt.xticks(ticks=x_ticks, labels=x_labels)
 	st.pyplot(fig3)
+	st.info("Se indica el número de tweets según la fecha en la que fueron publicados en Twitter")
+
 	
 	#METRICA 4 - Tweets según idioma
-	st.subheader("Número de tweets según idioma de publicación")
-	st.write("Se indica el idioma detectado en el texto del tweet")
+	palette2 = sns.color_palette("husl", 20)
+	st.subheader("3.5. Idioma de los tweets")
 	fig4 = plt.figure()
 	ax4 = fig4.add_axes([0,0,1,1])
+	tweets_df['idioma'] = tweets_df['idioma'].str.upper()
 	labels4 = tweets_df['idioma'].drop_duplicates()
 	labels4 = labels4.reindex(index=labels4.index[::-1])
 	values4 = tweets_df['idioma'].value_counts().sort_values(ascending=True)
-	ax4.barh(labels4,values4)
+	ax4.barh(labels4,values4,color=palette2)
 	st.pyplot(fig4)
-	
+	st.info("Se indica la cantidad de idiomas detectados en el conjunto de tweets")
 
-
-	
-	
-	
-	
-	
-	
-	
