@@ -6,19 +6,20 @@ import matplotlib.pyplot as plt
 import numpy as np
 from transformers import AutoTokenizer, AutoModelForSequenceClassification
 from transformers import pipeline
-#from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
-#import yweather
+from st_aggrid import AgGrid, GridOptionsBuilder, GridUpdateMode
+import yweather
 import json
 from datetime import datetime
 import requests
-import seaborn as sns
 
-sns.set(font_scale=1.3)
-plt.rc('font', size=14)
+
+#url = 'https://raw.githubusercontent.com/anafersan/prueba-tfm/main/woeid.json'
+#resp = requests.get(url)
+#data_woeid = json.loads(resp.text)
 
 # PAGE CONFIG 
 st.set_page_config(layout="wide")
-st.title('Analiza Treding Topics de Twitter según ubicación')
+st.title('Encuentra Treding Topics de Twitter según ubicación')
 st.markdown(
         "**Busca la ubicación** sobre la que desees conocer qué temas son tendencia. "
     )
@@ -48,6 +49,15 @@ def get_weoid():
 	return df_woeid
 
 df_woeid = get_weoid()
+
+# Variable que indica cambio
+#CHANGE = 0
+
+
+#@st.cache(allow_output_mutation=True)
+#def set_save_localization(ubicacion):
+#	saved_localizacion = ubicacion
+#	return saved_localizacion
 
 
 if 'saved_localizacion' not in st.session_state:
@@ -117,10 +127,31 @@ if option_localizacion != st.session_state.saved_localizacion:
 with col1:
 	# HEADER COL 1 - PART 2
 	st.header("2. Selecciona una tendencia")
+
+	#df = pd.DataFrame([{"hashtag": ["#love"]}, {"hashtag": ["#love"]}, {"hashtag": ["#love"]}])
 	opciones_tendencias = st.session_state.df_hashtags['hs_name']
 	df_tendencias = st.session_state.df_hashtags[['hs_name']]
+	#tendencia_select = st.checkbox(opciones_tendencias, True)
+	#print("HOLI SOY EL BOTON DE MIERDA")
 	tendencia_select = st.radio("Seleccciona una opción", opciones_tendencias)
+	#st.session_state.saved_trending = tendencia_select
 
+	#options_builder = GridOptionsBuilder.from_dataframe(df_tendencias)
+	#options_builder.configure_default_column(groupable=True, value=True, enableRowGroup=True, editable=True)
+	#options_builder.configure_column("hs_name", type=["stringColumn","stringColumnFilter"])
+	#options_builder.configure_selection("single", use_checkbox=True)
+	#options_builder.configure_pagination(paginationAutoPageSize=True)
+	#options_builder.configure_grid_options(domLayout='normal')
+	#grid_options = options_builder.build()
+	#grid_return = AgGrid(df, grid_options, update_mode="MODEL_CHANGED")
+	#selected_rows = grid_return["selected_rows"]
+
+	# FORMULARIO HASHTAG
+	#if len(selected_rows) == 0:
+	#	hashtag = st.text_input('Introduce un hashtag', "#love")
+	#else:
+	#hashtag = st.text_input('Introduce un hashtag', selected_rows[0]["hashtag"])
+	#hashtag = selected_rows[0]["hashtag"]
 				
 
 # Model importing
@@ -212,6 +243,9 @@ for tweet, user in zip(response.data, response.includes['users']):
     }
     tweet_info_ls.append(tweet_info)
     
+    # Write in de csv
+    #csvWriter.writerow([tweet.created_at, user.username, user.location, user.public_metrics['followers_count'], user.verified, tweet.text, tweet.public_metrics['retweet_count'], tweet.public_metrics['like_count'], str_hashtags, str_mentions])  
+
 # create dataframe from the extracted records
 tweets_df = pd.DataFrame(tweet_info_ls)
 
@@ -223,32 +257,35 @@ for tweet in response.data:
   texto = tweet.text
   sentiment = sentiment_task(texto)[0]
   label = sentiment['label']
+  #print(label)
   sentimientos[len(sentimientos):] = [label]
+# Gráfico distribución de sentimientos
+#labels = ['Positive', 'Neutral', 'Negative']
+#sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
+#colors = ['g', 'y', 'r']
+#chart_data = pd.DataFrame([sections], columns = labels)
+#st.bar_chart(chart_data)
 
 
 with col3:
 	# HEADER COL 3
 	st.header("3. Observa los resultados")
-	st.subheader("")
-	st.subheader("")
-
+	
 	#METRICA 1 - Tweets recogidos
-	st.subheader("3.1 Nº Tweets recogidos")
+	st.subheader("Tweets recogidos")
 	tweets_recogidos = len(tweets_df)
 	st.metric("Número de tweets recolectados", tweets_recogidos)
-	st.write("")
-
+	
 	
 	#METRICA 2 - Alcance 
-	st.subheader("3.2. Alcance")
+	st.subheader("Alcance")
 	total_alcance = tweets_df['followers'].sum() + tweets_df['retweet_count'].sum()*707
+	st.write("El alcance se calcula como el número de seguidores de las cuentas que han publicado el contenido recogido más el número de RTs de los tweets")
 	st.metric("Usuarios potencialmente alcanzados", total_alcance)
-	st.info("El alcance se calcula como el número de seguidores de las cuentas que han publicado el contenido recogido más el número de RTs de los tweets")
-	st.write("")
-	st.write("")
-
+	
 	#METRICA 6 - Otros hashtags 
-	st.subheader("3.3 Temas relacionados con los tweets")
+	st.subheader("Temas relacionados")
+	st.write("Se indican los 20 hashtags más añadidos por los usuarios a los tweets del tema seleccionado")
 	all_hashtags = []
 	#Se recorre la lista de tweets
 	# --------------------------------------------
@@ -263,8 +300,7 @@ with col3:
 				if hashtags[0] != "":
 					all_hashtags = all_hashtags + hashtags
 	# --------------------------------------------
-	palette = sns.color_palette("crest", 20)
-	fig6 = plt.figure(figsize=(8,10))
+	fig6 = plt.figure()
 	ax6 = fig6.add_axes([0,0,1,1])
 	hashtags_df = pd.DataFrame(all_hashtags, columns =['hs'])
 	labels6 = hashtags_df['hs'].drop_duplicates()
@@ -273,37 +309,31 @@ with col3:
 	values6 = hashtags_df.value_counts()
 	values6 = values6[:20]
 	values6 = values6.sort_values(ascending=True)
-	ax6.barh(labels6,values6,color=palette)
+	ax6.barh(labels6,values6)
 	st.pyplot(fig6)
-	st.info("Se indican los 20 hashtags más utilizados por los usuarios en los tweets del tema seleccionado")
-	st.subheader("")
 	
 	#METRICA 5 - Sentimiento
-	st.subheader("3.6 Distribución del sentimiento")
+	st.subheader("Distribución del sentimiento")
+	st.write("Distribución del sentimiento detectado en los tweets")
 	labels = 'Positive', 'Neutral', 'Negative'
 	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
 	colors = ['g', 'y', 'r']
 	fig1, ax1 = plt.subplots()
 	ax1.pie(sections, labels=labels, colors=colors,
 		startangle=90,
-		explode =(0.00, 0.01, 0.05),
-		autopct = '%1.2f%%', labeldistance=1.15,
-		pctdistance=0.5,
-		wedgeprops = { 'linewidth' : 3, 'edgecolor' : 'white' })
+		explode = (0, 0, 0),
+		autopct = '%1.2f%%')
 	ax1.axis('equal') # Try commenting this out.
 	st.pyplot(fig1)
-	st.info("Se representa la distribución del sentimiento detectado en los tweets a través del cálculo de la polaridad. Se ha utilizado el modelo preentrenado Cardiffnlp/twitter-roberta-base-sentiment alojado en HuggingFace")
-
+	
 
 with col5:
 	# HEADER COL 4
 	st.header(" ")
 	
 	#METRICA 3 - Tweets en el tiempo 
-	st.header("")
-	st.subheader("")
-	st.subheader("")
-	st.subheader("3.4 Distribución horaria de los tweets")
+	st.subheader("Número de tweets según hora de publicación")
+	st.write("Se indica el número de tweets según la fecha en la que fueron publicados en Twitter")
 	tweets_df['hora_minuto'] = tweets_df['created_at'].dt.strftime("%d/%m/%y %H:%M")
 	x = tweets_df['hora_minuto'].drop_duplicates()
 	y = tweets_df['hora_minuto'].value_counts()
@@ -315,22 +345,18 @@ with col5:
 	plt.plot(x, y)
 	plt.xticks(ticks=x_ticks, labels=x_labels)
 	st.pyplot(fig3)
-	st.info("Se indica el número de tweets según la fecha en la que fueron publicados en Twitter")
-
 	
 	#METRICA 4 - Tweets según idioma
-	palette2 = sns.color_palette("husl", 20)
-	st.subheader("3.5. Idioma de los tweets")
+	st.subheader("Número de tweets según idioma de publicación")
+	st.write("Se indica el idioma detectado en el texto del tweet")
 	fig4 = plt.figure()
 	ax4 = fig4.add_axes([0,0,1,1])
-	tweets_df['idioma'] = tweets_df['idioma'].str.upper()
 	labels4 = tweets_df['idioma'].drop_duplicates()
 	labels4 = labels4.reindex(index=labels4.index[::-1])
 	values4 = tweets_df['idioma'].value_counts().sort_values(ascending=True)
-	ax4.barh(labels4,values4,color=palette2)
+	ax4.barh(labels4,values4)
 	st.pyplot(fig4)
-	st.info("Se indica la cantidad de idiomas detectados en el conjunto de tweets")
-
+	
 
 
 	
