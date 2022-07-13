@@ -2,6 +2,5 @@ matplotlib
 transformers
 tweepy==4.0
 torch
-altair
 simplejson
 seaborn
