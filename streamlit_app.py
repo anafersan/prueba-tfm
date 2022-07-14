@@ -23,7 +23,7 @@ plt.rc('font', size=14)
 
 # PAGE CONFIG 
 st.set_page_config(layout="wide")
-st.title('Analiza Treding Topics de Twitter según ubicación')
+st.title('Analiza Trending Topics de Twitter según ubicación')
 st.markdown(
         "**Busca la ubicación** sobre la que desees conocer qué temas son tendencia. "
     )
