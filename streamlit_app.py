@@ -288,7 +288,7 @@ with col3:
 	st.subheader("3.2. Alcance")
 	total_alcance = tweets_df['followers'].sum() + tweets_df['retweet_count'].sum()*707
 	st.metric("Usuarios potencialmente alcanzados", total_alcance)
-	st.info("El alcance se calcula como el número de seguidores de las cuentas que han publicado el contenido recogido más el número de RTs de los tweets")
+	st.info("El alcance se calcula como el número de seguidores de las cuentas que han publicado el contenido recogido más el número de RTs de los tweets multiplicado por el número medio de seguidores medio de una cuenta")
 	st.write("")
 	st.write("")
 
@@ -337,7 +337,7 @@ with col3:
 		wedgeprops = { 'linewidth' : 3, 'edgecolor' : 'white' })
 	ax1.axis('equal') # Try commenting this out.
 	st.pyplot(fig1)
-	st.info("Se representa la distribución del sentimiento detectado en los tweets a través del cálculo de la polaridad. Se ha utilizado el modelo preentrenado Cardiffnlp/twitter-roberta-base-sentiment alojado en HuggingFace")
+	st.info("Se representa la distribución del sentimiento detectado en los tweets a través del cálculo de la polaridad. Se ha utilizado el modelo preentrenado Cardiffnlp/twitter-xml-roberta-base-sentiment alojado en HuggingFace")
 
 
 with col5:
@@ -374,5 +374,5 @@ with col5:
 	values4 = tweets_df['idioma'].value_counts().sort_values(ascending=True)
 	ax4.barh(labels4,values4,color=palette2)
 	st.pyplot(fig4)
-	st.info("Se indica la cantidad de idiomas detectados en el conjunto de tweets")
+	st.info("Se indica la cantidad de tweets detectados según el idioma en el que fueron posteados")
 
