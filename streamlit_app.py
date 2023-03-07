@@ -326,7 +326,7 @@ with col3:
 	#METRICA 5 - Sentimiento
 	st.subheader("3.6 Distribución del sentimiento")
 	labels = 'Positive', 'Neutral', 'Negative'
-	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
+	sections = [sentimientos.count('positive'), sentimientos.count('neutral'), sentimientos.count('negative')]
 	
 	#pruebaaa
 	st.info(sentimientos)
