@@ -327,6 +327,11 @@ with col3:
 	st.subheader("3.6 Distribución del sentimiento")
 	labels = 'Positive', 'Neutral', 'Negative'
 	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
+	
+	#pruebaaa
+	pruebastr = str(sentimientos.count('Positive'))
+	st.info(pruebastr)
+	
 	colors = ['g', 'y', 'r']
 	fig1, ax1 = plt.subplots()
 	ax1.pie(sections, labels=labels, colors=colors,
