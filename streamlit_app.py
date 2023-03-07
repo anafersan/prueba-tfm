@@ -329,6 +329,7 @@ with col3:
 	sections = [sentimientos.count('Positive'), sentimientos.count('Neutral'), sentimientos.count('Negative')]
 	
 	#pruebaaa
+	st.info(sentimientos)
 	pruebastr = str(sentimientos.count('Positive'))
 	st.info(pruebastr)
 	pruebastr2 = str(sentimientos.count('Neutral'))
