@@ -331,6 +331,10 @@ with col3:
 	#pruebaaa
 	pruebastr = str(sentimientos.count('Positive'))
 	st.info(pruebastr)
+	pruebastr2 = str(sentimientos.count('Neutral'))
+	st.info(pruebastr2)
+	pruebastr3 = str(sentimientos.count('Negative'))
+	st.info(pruebastr3)
 	
 	colors = ['g', 'y', 'r']
 	fig1, ax1 = plt.subplots()
