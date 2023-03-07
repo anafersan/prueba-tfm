@@ -330,11 +330,11 @@ with col3:
 	
 	#pruebaaa
 	st.info(sentimientos)
-	pruebastr = str(sentimientos.count('Positive'))
+	pruebastr = str(sentimientos.count('positive'))
 	st.info(pruebastr)
-	pruebastr2 = str(sentimientos.count('Neutral'))
+	pruebastr2 = str(sentimientos.count('neutral'))
 	st.info(pruebastr2)
-	pruebastr3 = str(sentimientos.count('Negative'))
+	pruebastr3 = str(sentimientos.count('negative'))
 	st.info(pruebastr3)
 	
 	colors = ['g', 'y', 'r']
